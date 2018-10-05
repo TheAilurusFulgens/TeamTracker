@@ -1,0 +1,168 @@
+.car-list {
+  list-style-type: none;
+  padding: 15px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+  order: 2;
+}
+
+.list-and-filters {
+  display: flex;
+  flex-direction: column;
+}
+
+.CarList .search input {
+  padding: 10px;
+  font-size: 14px;
+  max-width: 300px;
+  width: 100%;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.CarList .search {
+  flex-grow: 1;
+}
+
+.CarList .filters {
+  margin: 15px auto;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.CarList .filters .filter-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.CarList .filters .filter-wrapper:not(:last-child) {
+  margin-right: 15px;
+}
+
+.CarList .filters .filter-wrapper .filter-label {
+  margin-right: 15px;
+}
+
+.CarList .filters .filter {
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.CarList .filters .filter .filter__control {
+  background: #fff;
+  border: none;
+}
+
+.CarList ul.pagination {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.CarList ul.pagination li {
+  display: inline-block;
+  width: 20px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.no-results {
+  width: 100%;
+  text-align: center;
+}
+
+.CarList ul.pagination li a {
+  display: block;
+}
+
+.CarList .pagination li.active a {
+  background: #222;
+  color: #fff;
+}
+
+.Loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comparing-buttons {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 15px;
+  background: rgba(0,0,0,0.6);
+}
+
+.comparing-buttons button {
+  border: none;
+  font-size: 12px;
+  padding: 5px 10px;
+  color: #6aa84f;
+
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  text-transform: uppercase;
+  background: #f1f1f1;
+  outline: 0;
+  transition: all .3s ease;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter-button {
+  border: none;
+  font-size: 14px;
+  padding: 10px 15px;
+  color: #6aa84f;
+  width: 170px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  text-transform: uppercase;
+  background: #fff;
+  outline: 0;
+  transition: all .3s ease;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.comparing-buttons button:first-child {
+  margin-right: 10px;
+}
+
+.comparing-buttons button.main {
+  background: #6aa84f;
+  color: #fff;
+}
+
+@media (min-width: 800px) {
+  .list-and-filters {
+    flex-direction: row;
+  }
+  .car-list {
+    order: 1;
+  }
+}
