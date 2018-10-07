@@ -1,14 +1,14 @@
-.CarFilters {
+.TeamFilters {
   transition: all .2s ease;
   order: 1;
 }
 
-.CarFilters.open {
+.TeamFilters.open {
   width: 100%;
   opacity: 1;
 }
 
-.CarFilters.closed {
+.TeamFilters.closed {
   width: 0;
   opacity: 0;
   display: none;
@@ -55,14 +55,14 @@
 }
 
 @media (min-width: 800px) {
-  .CarFilters {
+  .TeamFilters {
     order: 2;
   }
-  .CarFilters.open {
+  .TeamFilters.open {
     width: 400px;
   }
 
-  .CarFilters.closed {
+  .TeamFilters.closed {
     display: block;
   }
 }

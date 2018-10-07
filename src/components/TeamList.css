@@ -1,4 +1,4 @@
-.car-list {
+.team-list {
   list-style-type: none;
   padding: 15px;
   margin: 0;
@@ -15,7 +15,7 @@
   flex-direction: column;
 }
 
-.CarList .search input {
+.TeamList .search input {
   padding: 10px;
   font-size: 14px;
   max-width: 300px;
@@ -28,11 +28,11 @@
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.CarList .search {
+.TeamList .search {
   flex-grow: 1;
 }
 
-.CarList .filters {
+.TeamList .filters {
   margin: 15px auto;
   max-width: 800px;
   display: flex;
@@ -42,32 +42,32 @@
   padding: 15px;
 }
 
-.CarList .filters .filter-wrapper {
+.TeamList .filters .filter-wrapper {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.CarList .filters .filter-wrapper:not(:last-child) {
+.TeamList .filters .filter-wrapper:not(:last-child) {
   margin-right: 15px;
 }
 
-.CarList .filters .filter-wrapper .filter-label {
+.TeamList .filters .filter-wrapper .filter-label {
   margin-right: 15px;
 }
 
-.CarList .filters .filter {
+.TeamList .filters .filter {
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   min-width: 200px;
 }
 
-.CarList .filters .filter .filter__control {
+.TeamList .filters .filter .filter__control {
   background: #fff;
   border: none;
 }
 
-.CarList ul.pagination {
+.TeamList ul.pagination {
   display: block;
   padding-left: 15px;
   padding-right: 15px;
@@ -75,7 +75,7 @@
   margin: 25px 0;
 }
 
-.CarList ul.pagination li {
+.TeamList ul.pagination li {
   display: inline-block;
   width: 20px;
   padding: 5px;
@@ -89,11 +89,11 @@
   text-align: center;
 }
 
-.CarList ul.pagination li a {
+.TeamList ul.pagination li a {
   display: block;
 }
 
-.CarList .pagination li.active a {
+.TeamList .pagination li.active a {
   background: #222;
   color: #fff;
 }
@@ -162,7 +162,7 @@
   .list-and-filters {
     flex-direction: row;
   }
-  .car-list {
+  .team-list {
     order: 1;
   }
 }

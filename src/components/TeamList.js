@@ -3,10 +3,10 @@ import ReactPaginate from 'react-paginate';
 import Select from 'react-select';
 import { PacmanLoader } from 'react-spinners';
 import { load } from '../helpers/spreadsheet';
-import Car from './Car';
-import CarFilters from './CarFilters';
+import Car from './Team';
+import TeamFilters from './TeamFilters';
 import BestOfEach from './BestOfEach';
-import './CarList.css';
+import './TeamList.css';
 
 import NotFound from './not-found.gif';
 
@@ -30,7 +30,7 @@ const FILTER_OPTIONS = [
   { value: 10, option: 'dFeatures', label: 'Climbing' },
 ];
 
-class CarList extends Component {
+class TeamList extends Component {
   state = {
     loading: true,
     error: null,
@@ -246,7 +246,7 @@ class CarList extends Component {
   };
 
   renderFullList = () => (
-    <div className="CarList">
+    <div className="TeamList">
       <div className="filters">
         <div className="filter-wrapper search">
           <span className="filter-label">Search:</span>{' '}
@@ -277,8 +277,8 @@ class CarList extends Component {
       </div>
       <h4 style={{ textAlign: `center` }}>Total Teams: {this.state.results}</h4>
       <div className="list-and-filters">
-        {this.renderCarList()}
-        <CarFilters
+        {this.renderTeamList()}
+        <TeamFilters
           open={this.state.open}
           filterOptions={this.state.filterOptions}
           filter={this.filter}
@@ -312,7 +312,7 @@ class CarList extends Component {
   );
 
   renderCarList = () => (
-    <ul className="car-list">
+    <ul className="team-list">
       {this.state.currentResults.length ? (
         this.state.currentResults.map(car => (
           <Car
@@ -335,7 +335,7 @@ class CarList extends Component {
 
   renderCompareList = () => (
     <div>
-      <ul className="car-list">
+      <ul className="team-list">
         {this.state.selectedCars.map(car => (
           <Car
             key={car.name}
@@ -378,4 +378,4 @@ class CarList extends Component {
   }
 }
 
-export default CarList;
+export default TeamList;

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
 import { Bar } from 'react-chartjs-2';
-import './Car.css';
+import './Team.css';
 
 const Car = ({ car, sortOption, search, selected, selectCar }) => (
-  <li className="Car">
+  <li className="Team">
     <div>
       <h3>
         {search ? (

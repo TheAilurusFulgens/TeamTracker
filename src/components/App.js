@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './favicon.png';
 import react from './logo.svg';
 import './App.css';
-import CarList from './CarList';
+import TeamList from './TeamList';
 
 class App extends Component {
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
             Team Scouting App created by the AZTECH
           </p>
         </header>
-        <CarList />
+        <TeamList />
         <footer className="App-footer">
           <p>
             Made by{' '}

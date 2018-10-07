@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
-import './CarFilters.css';
+import './TeamFilters.css';
 import '../../node_modules/react-input-range/lib/css/index.css';
 
-class CarFilters extends Component {
+class TeamFilters extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,7 @@ class CarFilters extends Component {
   }
   render() {
     return (
-      <div className={`CarFilters ${this.props.open ? 'open' : `closed`}`}>
+      <div className={`TeamFilters ${this.props.open ? 'open' : `closed`}`}>
         <div className="filter-card">
           <h3>Filters</h3>
           {this.props.filterOptions.map(filterOption => (
@@ -38,11 +38,11 @@ class CarFilters extends Component {
     );
   }
 }
-CarFilters.propTypes = {
+TeamFilters.propTypes = {
   open: PropTypes.bool.isRequired,
   filterOptions: PropTypes.array.isRequired,
   filter: PropTypes.func.isRequired,
   clearFilters: PropTypes.func.isRequired,
 };
 
-export default CarFilters;
+export default TeamFilters;

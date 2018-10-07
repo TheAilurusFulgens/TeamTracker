@@ -1,4 +1,4 @@
-.Car {
+.Team {
   padding: 15px;
   margin: 10px;
   border-radius: 4px;
@@ -12,7 +12,7 @@
   flex-direction: column;
 }
 
-.Car h3 {
+.Team h3 {
   margin-top: 0;
   margin-bottom: 10px;
   font-weight: 600;
@@ -20,20 +20,20 @@
   margin-right: 25px;
 }
 
-.Car .number {
+.Team .number {
   font-weight: 600;
 }
 
-.Car div:last-child {
+.Team div:last-child {
   margin-top: auto;
 }
 
-.Car .hl {
+.Team .hl {
   background: #6aa84f;
   color: #fff;
 }
 
-.Car .active {
+.Team .active {
   background: #6aa84f;
   color: #fff;
   padding: 5px;
@@ -48,7 +48,7 @@
   top: 0;
   right: 0;
 }
-.Car .compare button {
+.Team .compare button {
   border: none;
   width: 100%;
   font-size: 14px;
@@ -63,24 +63,24 @@
   cursor: pointer;
 }
 
-.Car .compare button.selected {
+.Team .compare button.selected {
   background: #6aa84f;
   color: #fff;
 }
 
-.Car:hover {
+.Team:hover {
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 750px) and (max-width: 999px) {
-  .Car {
+  .Team {
     flex: 0 1 300px;
   }
 }
 
 @media (min-width: 1000px) {
-  .Car {
+  .Team {
     flex: 0 1 250px;
   }
 }

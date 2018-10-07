@@ -4,19 +4,10 @@ import './BestOfEach.css';
 
 class BestOfEach extends Component {
   findBest = key => {
-    // console.log("key")
-    // console.log(key)
-    // console.log("this.props.selectedCars")
-    // console.log(this.props.selectedCars)
-    // console.log("keys")
     console.log(process.env.HOME)
     const keys = this.props.selectedCars.map(carObject => carObject[key]);
-    // console.log(keys)
     const maxValue = Math.max(...keys);
-    // console.log("maxValues")
-    // console.log(maxValue)
     const car = this.props.selectedCars.find(carObject => carObject[key] === maxValue);
-    // console.log(car.name)
     return car.name;
   };
   render() {
