@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import Select from 'react-select';
 import { PacmanLoader } from 'react-spinners';
 import { load } from '../helpers/spreadsheet';
-import Car from './Team';
+import Team from './Team';
 import TeamFilters from './TeamFilters';
 import BestOfEach from './BestOfEach';
 import './TeamList.css';
@@ -14,18 +14,18 @@ const PAGE_LIMIT = 20;
 
 const SORT_OPTIONS = [
   { value: 'baRank', label: 'Team Rank' },
-  { value: 'dTotal', label: 'AZTECH Rank' },
-  { value: 'wStyling', label: 'Switch' },
-  { value: 'wAccel', label: 'Scale' },
-  { value: 'wHandling', label: 'Exchange' },
-  { value: 'wFun', label: 'Climbing' },
+  { value: 'azRank', label: 'AZTECH Rank' },
+  { value: 'switch', label: 'Switch' },
+  { value: 'scale', label: 'Scale' },
+  { value: 'exchange', label: 'Exchange' },
+  { value: 'climbing', label: 'Climbing' },
 ];
 
 const FILTER_OPTIONS = [
-  { value: 10, option: 'wStyling', label: 'Team Rank' },
-  { value: 10, option: 'wAccel', label: 'AZTECH Rank' },
-  { value: 10, option: 'wHandling', label: 'Switch' },
-  { value: 10, option: 'wFun', label: 'Scale' },
+  { value: 10, option: 'switch', label: 'Team Rank' },
+  { value: 10, option: 'scale', label: 'AZTECH Rank' },
+  { value: 10, option: 'exchange', label: 'Switch' },
+  { value: 10, option: 'climbing', label: 'Scale' },
   { value: 10, option: 'wCool', label: 'Exchange' },
   { value: 10, option: 'dFeatures', label: 'Climbing' },
 ];
@@ -34,13 +34,13 @@ class TeamList extends Component {
   state = {
     loading: true,
     error: null,
-    cars: [],
+    teams: [],
     page: 0,
     pageCount: 0,
     search: '',
     results: 0,
     sort: SORT_OPTIONS[0],
-    selectedCars: [],
+    selectedTeams: [],
     comparing: false,
     open: false,
     filterOptions: FILTER_OPTIONS,
@@ -55,10 +55,10 @@ class TeamList extends Component {
     if (data) {
       const { page } = this.state;
       this.setState({
-        cars: data.cars,
-        results: data.cars.length,
-        currentResults: data.cars.slice(page, PAGE_LIMIT),
-        pageCount: data.cars.length / PAGE_LIMIT,
+        teams: data.teams,
+        results: data.teams.length,
+        currentResults: data.teams.slice(page, PAGE_LIMIT),
+        pageCount: data.teams.length / PAGE_LIMIT,
         loading: false,
       });
     } else {
@@ -80,33 +80,33 @@ class TeamList extends Component {
       });
   };
 
-  selectCar = (e, car) => {
-    const { selectedCars } = this.state;
-    if (selectedCars.indexOf(car) === -1) {
-      selectedCars.push(car);
+  selectTeam = (e, team) => {
+    const { selectedTeams } = this.state;
+    if (selectedTeams.indexOf(team) === -1) {
+      selectedTeams.push(team);
     } else {
-      selectedCars.splice(selectedCars.indexOf(car), 1);
-      if (!selectedCars.length) {
+      selectedTeams.splice(selectedTeams.indexOf(team), 1);
+      if (!selectedTeams.length) {
         this.setState({ comparing: false });
       }
     }
-    this.setState({ selectedCars });
+    this.setState({ selectedTeams });
   };
 
   handlePageClick = data => {
     const { selected } = data;
     const searchValue = this.state.search;
-    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
-    const searchResults = this.findMatches(searchValue, filteredCars);
+    const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredTeams);
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
-      car =>
-        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
-        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
-        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
-        car.wFun <= filters.find(option => option.option === 'wFun').value
-        // car.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // car.dFeatures <= filters.find(option => option.option === 'dFeatures').value
+      team =>
+        team.switch <= filters.find(option => option.option === 'switch').value &&
+        team.scale <= filters.find(option => option.option === 'scale').value &&
+        team.exchange <= filters.find(option => option.option === 'exchange').value &&
+        team.climbing <= filters.find(option => option.option === 'climbing').value
+        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
+        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
 
     );
     this.setState({
@@ -117,17 +117,17 @@ class TeamList extends Component {
 
   handleSearch = e => {
     const searchValue = e.target.value;
-    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
-    const searchResults = this.findMatches(searchValue, filteredCars);
+    const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredTeams);
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
-      car =>
-        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
-        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
-        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
-        car.wFun <= filters.find(option => option.option === 'wFun').value 
-        // car.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // car.dFeatures <= filters.find(option => option.option === 'dFeatures').value
+      team =>
+        team.switch <= filters.find(option => option.option === 'switch').value &&
+        team.scale <= filters.find(option => option.option === 'scale').value &&
+        team.exchange <= filters.find(option => option.option === 'exchange').value &&
+        team.climbing <= filters.find(option => option.option === 'climbing').value 
+        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
+        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
 
     );
     this.setState({
@@ -142,8 +142,8 @@ class TeamList extends Component {
   filter = (filterItem, value) => {
     // Current sort & search state results
     const searchValue = this.state.search;
-    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
-    const searchResults = this.findMatches(searchValue, filteredCars);
+    const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredTeams);
     console.log(FILTER_OPTIONS);
     // Updated the filter first
     const filters = this.state.filterOptions;
@@ -156,13 +156,13 @@ class TeamList extends Component {
     // Now lets filter out those results
 
     const filteredArray = searchResults.filter(
-      car =>
-        car.baRank <= updatedFilterOptions.find(option => option.option === 'wStyling').value &&
-        car.dTotal <= updatedFilterOptions.find(option => option.option === 'wAccel').value &&
-        car.wStyling <= updatedFilterOptions.find(option => option.option === 'wHandling').value &&
-        car.wAccel <= updatedFilterOptions.find(option => option.option === 'wFun').value &&
-        car.wHandling <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
-        car.wFun <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
+      team =>
+        team.baRank <= updatedFilterOptions.find(option => option.option === 'switch').value &&
+        team.azRank <= updatedFilterOptions.find(option => option.option === 'scale').value &&
+        team.switch <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
+        team.scale <= updatedFilterOptions.find(option => option.option === 'climbing').value &&
+        team.exchange <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
+        team.climbing <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
         
     );
 
@@ -175,30 +175,30 @@ class TeamList extends Component {
     });
   };
 
-  findMatches = (wordToMatch, cars) =>
-    cars.filter(car => {
+  findMatches = (wordToMatch, teams) =>
+    teams.filter(team => {
       const regex = new RegExp(wordToMatch, 'gi');
-      return car.name.match(regex);
+      return team.name.match(regex);
     });
 
   handleSortChange = selected => {
-    const cars = this.state.cars.sort((a, b) => b[selected.value] - a[selected.value]);
-    const searchResults = this.findMatches(this.state.search, cars);
+    const teams = this.state.teams.sort((a, b) => b[selected.value] - a[selected.value]);
+    const searchResults = this.findMatches(this.state.search, teams);
 
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
-      car =>
-        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
-        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
-        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
-        car.wFun <= filters.find(option => option.option === 'wFun').value 
-        // car.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // car.dFeatures <= filters.find(option => option.option === 'dFeatures').value
+      team =>
+        team.switch <= filters.find(option => option.option === 'switch').value &&
+        team.scale <= filters.find(option => option.option === 'scale').value &&
+        team.exchange <= filters.find(option => option.option === 'exchange').value &&
+        team.climbing <= filters.find(option => option.option === 'climbing').value 
+        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
+        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
         
     );
 
     this.setState({
-      cars,
+      teams,
       currentResults: filteredArray.slice(this.state.page * PAGE_LIMIT, this.state.page * PAGE_LIMIT + PAGE_LIMIT),
       sort: selected,
     });
@@ -212,27 +212,27 @@ class TeamList extends Component {
   clearList = () => {
     this.setState({
       comparing: false,
-      selectedCars: [],
+      selectedTeams: [],
     });
   };
 
   clearFilters = () => {
     const searchValue = this.state.search;
-    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
-    const searchResults = this.findMatches(searchValue, filteredCars);
+    const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredTeams);
     // Now lets filter out those results
     const updatedFilterOptions = this.state.filterOptions.map(filterOption => {
       filterOption.value = 10;
       return filterOption;
     });
     const filteredArray = searchResults.filter(
-      car =>
-        car.wStyling <= updatedFilterOptions.find(option => option.option === 'wStyling').value &&
-        car.wAccel <= updatedFilterOptions.find(option => option.option === 'wAccel').value &&
-        car.wHandling <= updatedFilterOptions.find(option => option.option === 'wHandling').value &&
-        car.wFun <= updatedFilterOptions.find(option => option.option === 'wFun').value 
-        // car.wCool <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
-        // car.dFeatures <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
+      team =>
+        team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value &&
+        team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value &&
+        team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
+        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value 
+        // team.wCool <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
+        // team.dFeatures <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
        
     );
 
@@ -311,17 +311,17 @@ class TeamList extends Component {
     </div>
   );
 
-  renderCarList = () => (
+  renderTeamList = () => (
     <ul className="team-list">
       {this.state.currentResults.length ? (
-        this.state.currentResults.map(car => (
-          <Car
-            key={car.name}
-            car={car}
+        this.state.currentResults.map(team => (
+          <Team
+            key={team.name}
+            team={team}
             sortOption={this.state.sort.value}
             search={this.state.search}
-            selectCar={this.selectCar}
-            selected={this.state.selectedCars.indexOf(car) !== -1}
+            selectTeam={this.selectTeam}
+            selected={this.state.selectedTeams.indexOf(team) !== -1}
           />
         ))
       ) : (
@@ -336,18 +336,18 @@ class TeamList extends Component {
   renderCompareList = () => (
     <div>
       <ul className="team-list">
-        {this.state.selectedCars.map(car => (
-          <Car
-            key={car.name}
-            car={car}
+        {this.state.selectedTeams.map(team => (
+          <Team
+            key={team.name}
+            team={team}
             sortOption={this.state.sort.value}
             search={this.state.search}
-            selectCar={this.selectCar}
-            selected={this.state.selectedCars.indexOf(car) !== -1}
+            selectTeam={this.selectTeam}
+            selected={this.state.selectedTeams.indexOf(team) !== -1}
           />
         ))}
       </ul>
-      {this.state.selectedCars.length ? <BestOfEach selectedCars={this.state.selectedCars} /> : null}
+      {this.state.selectedTeams.length ? <BestOfEach selectedTeams={this.state.selectedTeams} /> : null}
     </div>
   );
 
@@ -365,7 +365,7 @@ class TeamList extends Component {
     return (
       <div>
         {!this.state.comparing ? this.renderFullList() : this.renderCompareList()}
-        {this.state.selectedCars.length ? (
+        {this.state.selectedTeams.length ? (
           <div className="comparing-buttons">
             <button className="main" onClick={() => this.compare()}>
               {this.state.comparing ? 'Cancel' : 'Compare'}

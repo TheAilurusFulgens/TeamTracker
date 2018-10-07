@@ -4,26 +4,26 @@ import reactStringReplace from 'react-string-replace';
 import { Bar } from 'react-chartjs-2';
 import './Team.css';
 
-const Car = ({ car, sortOption, search, selected, selectCar }) => (
+const Team = ({ team, sortOption, search, selected, selectTeam }) => (
   <li className="Team">
     <div>
       <h3>
         {search ? (
-          reactStringReplace(car.name, search, (match, i) => (
+          reactStringReplace(team.name, search, (match, i) => (
             <span key={i} className="hl">
               {match}
             </span>
           ))
         ) : (
-          <span>{car.name}</span>
+          <span>{team.name}</span>
         )}
       </h3>
     </div>
-    <div className={sortOption === 'wTotal' ? 'active' : 'weekend'}>
-      {sortOption === 'wTotal' ? null : 'Blue Alliance Rank: '} <span className="number">{car.baRank}</span>
+    <div className={sortOption === 'azRank' ? 'active' : 'weekend'}>
+      {sortOption === 'azRank' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
     </div>
-    <div className={sortOption === 'dTotal' ? 'active' : 'daily'}>
-      {sortOption === 'dTotal' ? null : 'AZTECH Rank: '} <span className="number">{car.dTotal}</span>
+    <div className={sortOption === 'azRank' ? 'active' : 'daily'}>
+      {sortOption === 'azRank' ? null : 'AZTECH Rank: '} <span className="number">{team.azRank}</span>
     </div>
     <div style={{ marginTop: 20 }}>
       <Bar
@@ -63,10 +63,10 @@ const Car = ({ car, sortOption, search, selected, selectCar }) => (
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
               data: [
-                car.wStyling,
-                car.wAccel,
-                car.wHandling,
-                car.wFun,
+                team.switch,
+                team.scale,
+                team.exchange,
+                team.climbing,
               ],
             },
           ],
@@ -74,19 +74,19 @@ const Car = ({ car, sortOption, search, selected, selectCar }) => (
       />
     </div>
     <div className="compare">
-      <button onClick={e => selectCar(e, car)} className={selected ? 'selected' : null}>
+      <button onClick={e => selectTeam(e, team)} className={selected ? 'selected' : null}>
         {selected ? 'Selected' : 'Compare'}
       </button>
     </div>
   </li>
 );
 
-Car.propTypes = {
-  car: PropTypes.object.isRequired,
+Team.propTypes = {
+  team: PropTypes.object.isRequired,
   sortOption: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  selectCar: PropTypes.func.isRequired,
+  selectTeam: PropTypes.func.isRequired,
 };
 
-export default Car;
+export default Team;

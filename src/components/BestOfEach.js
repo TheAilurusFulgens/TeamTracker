@@ -5,13 +5,13 @@ import './BestOfEach.css';
 class BestOfEach extends Component {
   findBest = key => {
     console.log(process.env.HOME)
-    const keys = this.props.selectedCars.map(carObject => carObject[key]);
+    const keys = this.props.selectedTeams.map(teamObject => teamObject[key]);
     const maxValue = Math.max(...keys);
-    const car = this.props.selectedCars.find(carObject => carObject[key] === maxValue);
-    return car.name;
+    const team = this.props.selectedTeams.find(teamObject => teamObject[key] === maxValue);
+    return team.name;
   };
   render() {
-    if (this.props.selectedCars.length) {
+    if (this.props.selectedteams.length) {
       return (
         <div className="best-card">
           <h3>Best of each category</h3>
@@ -22,19 +22,19 @@ class BestOfEach extends Component {
            Team Rank: <span style={{ fontWeight: 600 }}>{this.findBest('baRank')}</span>
           </p>
           <p>
-            AZTech Rank: <span style={{ fontWeight: 600 }}>{this.findBest('dTotal')}</span>
+            AZTech Rank: <span style={{ fontWeight: 600 }}>{this.findBest('azRank')}</span>
           </p>
           <p>
-            Switch: <span style={{ fontWeight: 600 }}>{this.findBest('wStyling')}</span>
+            Switch: <span style={{ fontWeight: 600 }}>{this.findBest('switch')}</span>
           </p>
           <p>
-            Scale: <span style={{ fontWeight: 600 }}>{this.findBest('wAccel')}</span>
+            Scale: <span style={{ fontWeight: 600 }}>{this.findBest('scale')}</span>
           </p>
           <p>
-            Exchange: <span style={{ fontWeight: 600 }}>{this.findBest('wHandling')}</span>
+            Exchange: <span style={{ fontWeight: 600 }}>{this.findBest('exchange')}</span>
           </p>
           <p>
-            Climbing: <span style={{ fontWeight: 600 }}>{this.findBest('wFun')}</span>
+            Climbing: <span style={{ fontWeight: 600 }}>{this.findBest('climbing')}</span>
           </p>
           {/* <p>
             Cool Factor: <span style={{ fontWeight: 600 }}>{this.findBest('wCool')}</span>
@@ -46,7 +46,7 @@ class BestOfEach extends Component {
 }
 
 BestOfEach.propTypes = {
-  selectedCars: PropTypes.array.isRequired,
+  selectedteams: PropTypes.array.isRequired,
 };
 
 export default BestOfEach;

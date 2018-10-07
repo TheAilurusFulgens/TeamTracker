@@ -62,20 +62,19 @@ export function load(callback) {
               climbing: climbing_sums[name] / counts[name]});
           }
 
-          let cars =
-            results.map(car => ({
-              name: car['team_num'],
-              wStyling: car["switch"],
-              wAccel: car["scale"],
-              wHandling: car["exchange"],
-              wFun: car["climbing"],
-              wTotal: 0,
-              dTotal: 0,
+          let teams =
+            results.map(team => ({
+              name: team['team_num'],
+              switch: team["switch"],
+              scale: team["scale"],
+              exchange: team["exchange"],
+              climbing: team["climbing"],
+              azRank: 0,
               baRank: 2
             })) || [];
 
           callback({
-            cars
+            teams
           });
         },
         response => {
