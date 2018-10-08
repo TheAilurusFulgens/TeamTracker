@@ -11,7 +11,7 @@ class BestOfEach extends Component {
     return team.name;
   };
   render() {
-    if (this.props.selectedteams.length) {
+    if (this.props.selectedTeams.length) {
       return (
         <div className="best-card">
           <h3>Best of each category</h3>
@@ -19,7 +19,7 @@ class BestOfEach extends Component {
             {/* <span role="img" aria-label="Checkmark">
               ✅
             </span>{' '} */}
-           Team Rank: <span style={{ fontWeight: 600 }}>{this.findBest('baRank')}</span>
+           Team Rank: <span style={{ fontWeight: 600 }}>{this.findBest('baRankFilter')}</span>
           </p>
           <p>
             AZTech Rank: <span style={{ fontWeight: 600 }}>{this.findBest('azRank')}</span>
@@ -36,9 +36,6 @@ class BestOfEach extends Component {
           <p>
             Climbing: <span style={{ fontWeight: 600 }}>{this.findBest('climbing')}</span>
           </p>
-          {/* <p>
-            Cool Factor: <span style={{ fontWeight: 600 }}>{this.findBest('wCool')}</span>
-          </p> */}
         </div>
       );
     }

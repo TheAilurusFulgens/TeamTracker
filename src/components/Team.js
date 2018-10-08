@@ -20,7 +20,7 @@ const Team = ({ team, sortOption, search, selected, selectTeam }) => (
       </h3>
     </div>
     <div className={sortOption === 'azRank' ? 'active' : 'weekend'}>
-      {sortOption === 'azRank' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
+      {sortOption === 'baRank' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
     </div>
     <div className={sortOption === 'azRank' ? 'active' : 'daily'}>
       {sortOption === 'azRank' ? null : 'AZTECH Rank: '} <span className="number">{team.azRank}</span>

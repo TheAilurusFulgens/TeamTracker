@@ -13,7 +13,7 @@ import NotFound from './not-found.gif';
 const PAGE_LIMIT = 20;
 
 const SORT_OPTIONS = [
-  { value: 'baRank', label: 'Team Rank' },
+  { value: 'baRankFilter', label: 'Team Rank' },
   { value: 'azRank', label: 'AZTECH Rank' },
   { value: 'switch', label: 'Switch' },
   { value: 'scale', label: 'Scale' },
@@ -22,12 +22,12 @@ const SORT_OPTIONS = [
 ];
 
 const FILTER_OPTIONS = [
-  { value: 10, option: 'switch', label: 'Team Rank' },
-  { value: 10, option: 'scale', label: 'AZTECH Rank' },
-  { value: 10, option: 'exchange', label: 'Switch' },
-  { value: 10, option: 'climbing', label: 'Scale' },
-  { value: 10, option: 'wCool', label: 'Exchange' },
-  { value: 10, option: 'dFeatures', label: 'Climbing' },
+  { value: 10, option: 'baRankFilter', label: 'Team Rank' },
+  { value: 10, option: 'azRank', label: 'AZTECH Rank' },
+  { value: 10, option: 'switch', label: 'Switch' },
+  { value: 10, option: 'scale', label: 'Scale' },
+  { value: 10, option: 'exchange', label: 'Exchange' },
+  { value: 10, option: 'climbing', label: 'Climbing' },
 ];
 
 class TeamList extends Component {
@@ -105,8 +105,6 @@ class TeamList extends Component {
         team.scale <= filters.find(option => option.option === 'scale').value &&
         team.exchange <= filters.find(option => option.option === 'exchange').value &&
         team.climbing <= filters.find(option => option.option === 'climbing').value
-        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
 
     );
     this.setState({
@@ -126,8 +124,6 @@ class TeamList extends Component {
         team.scale <= filters.find(option => option.option === 'scale').value &&
         team.exchange <= filters.find(option => option.option === 'exchange').value &&
         team.climbing <= filters.find(option => option.option === 'climbing').value 
-        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
 
     );
     this.setState({
@@ -157,12 +153,12 @@ class TeamList extends Component {
 
     const filteredArray = searchResults.filter(
       team =>
-        team.baRank <= updatedFilterOptions.find(option => option.option === 'switch').value &&
-        team.azRank <= updatedFilterOptions.find(option => option.option === 'scale').value &&
-        team.switch <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
-        team.scale <= updatedFilterOptions.find(option => option.option === 'climbing').value &&
-        team.exchange <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
-        team.climbing <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
+        team.baRankFilter <= updatedFilterOptions.find(option => option.option === 'baRankFilter').value &&
+        team.azRank <= updatedFilterOptions.find(option => option.option === 'azRank').value &&
+        team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value &&
+        team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value &&
+        team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
+        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value
         
     );
 
@@ -192,8 +188,6 @@ class TeamList extends Component {
         team.scale <= filters.find(option => option.option === 'scale').value &&
         team.exchange <= filters.find(option => option.option === 'exchange').value &&
         team.climbing <= filters.find(option => option.option === 'climbing').value 
-        // team.wCool <= filters.find(option => option.option === 'wCool').value &&
-        // team.dFeatures <= filters.find(option => option.option === 'dFeatures').value
         
     );
 
@@ -230,9 +224,7 @@ class TeamList extends Component {
         team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value &&
         team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value &&
         team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
-        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value 
-        // team.wCool <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
-        // team.dFeatures <= updatedFilterOptions.find(option => option.option === 'dFeatures').value
+        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value
        
     );
 

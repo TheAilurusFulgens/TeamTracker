@@ -3,12 +3,25 @@
 // import { get } from "./localStorage";
 
 import config from "../config";
+import axios from 'axios';
 
 /**
  * Load the teams from the spreadsheet
  * Get the right values from it and assign.
  */
 export function load(callback) {
+  var rankLookup = {}
+  var blueAllianceConfig = {
+    headers: {'Accept': 'application/json', 'X-TBA-Auth-Key':'NTzpTFdnASplharZXjaUdE2yCTRw0LXD9cVSz9Ox2ulKRuJXfpvNyThzSudidh2X'}
+  };
+  axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/rankings', blueAllianceConfig)
+  .then(function(response){
+    console.log(response.data); // ex.: { user: 'Your User'}
+    response.data.rankings.forEach((d) => rankLookup[d.team_key] = d.rank)
+    console.log(rankLookup); // ex.: 200
+  });  
+
+  
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .get({
@@ -63,15 +76,19 @@ export function load(callback) {
           }
 
           let teams =
-            results.map(team => ({
+            results.map(team => {
+              console.log()
+              return ({
               name: team['team_num'],
               switch: team["switch"],
               scale: team["scale"],
               exchange: team["exchange"],
               climbing: team["climbing"],
               azRank: 0,
-              baRank: 2
-            })) || [];
+              baRank: rankLookup["frc"+team['team_num']],
+              baRankFilter: (42- rankLookup["frc"+team['team_num']])
+
+            })}) || [];
 
           callback({
             teams
