@@ -22,7 +22,10 @@ class BestOfEach extends Component {
            Team Rank: <span style={{ fontWeight: 600 }}>{this.findBest('baRankFilter')}</span>
           </p>
           <p>
-            AZTech Rank: <span style={{ fontWeight: 600 }}>{this.findBest('azRank')}</span>
+            Offensive Power Rank: <span style={{ fontWeight: 600 }}>{this.findBest('azRank')}</span>
+          </p>
+          <p>
+            Defensive Power Rank: <span style={{ fontWeight: 600 }}>{this.findBest('dpRankFilter')}</span>
           </p>
           <p>
             Switch: <span style={{ fontWeight: 600 }}>{this.findBest('switch')}</span>

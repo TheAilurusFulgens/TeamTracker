@@ -4,22 +4,41 @@
 
 import config from "../config";
 import axios from 'axios';
-
+//import { map, reduce, somethingElse } from 'underscore'
 /**
  * Load the teams from the spreadsheet
  * Get the right values from it and assign.
  */
 export function load(callback) {
   var rankLookup = {}
+  var rankMax = 0
+  var teamName = {}
+  var opRank = {}
+  var dpRank = {}
+  var dprMax = 0
+  var oprMax = 0
   var blueAllianceConfig = {
     headers: {'Accept': 'application/json', 'X-TBA-Auth-Key':'NTzpTFdnASplharZXjaUdE2yCTRw0LXD9cVSz9Ox2ulKRuJXfpvNyThzSudidh2X'}
   };
-  axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/rankings', blueAllianceConfig)
-  .then(function(response){
-    console.log(response.data); // ex.: { user: 'Your User'}
-    response.data.rankings.forEach((d) => rankLookup[d.team_key] = d.rank)
-    console.log(rankLookup); // ex.: 200
-  });  
+  axios.all([
+    axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/rankings', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/teams/simple', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/oprs', blueAllianceConfig)
+  ])
+  .then(axios.spread(function(rank,team, oprank){
+    //console.log(team.data); // ex.: { user: 'Your User'}
+    //console.log(team.status); // ex.: 200
+    rank.data.rankings.forEach((d) => rankLookup[d.team_key] = d.rank)
+    let rankArr = Object.values(rankLookup);
+    rankMax = Math.round(Math.max(...rankArr))
+    team.data.forEach((d) => teamName[d.team_number] = d.nickname)
+    opRank = oprank.data.oprs
+    let oprArr = Object.values(opRank);
+    oprMax = Math.round(Math.max(...oprArr))
+    dpRank = oprank.data.dprs
+    let dprArr = Object.values(dpRank);
+    dprMax = Math.round(Math.max(...dprArr))
+  }));  
 
   
   window.gapi.client.load("sheets", "v4", () => {
@@ -60,7 +79,7 @@ export function load(callback) {
               if(records[i].climbing ==="Yes"){
                 climbing_sums[name] += 2
               }
-              if(records[i].climbing ==="Maybe"){
+              if(records[i].climbing ==="Attempted"){
                 climbing_sums[name] += 1
               }
               if(records[i].climbing ==="No"){
@@ -77,21 +96,24 @@ export function load(callback) {
 
           let teams =
             results.map(team => {
-              console.log()
               return ({
-              name: team['team_num'],
+              number: team['team_num'],
+              name: "Team "+ team['team_num'] + " - " + teamName[team['team_num']],
               switch: team["switch"],
               scale: team["scale"],
               exchange: team["exchange"],
               climbing: team["climbing"],
-              azRank: 0,
+              azRank: Math.round(opRank["frc"+team['team_num']]),
+              dpRank: Math.round(dpRank["frc"+team['team_num']]),
+              dpRankFilter: (dprMax - Math.round(dpRank["frc"+team['team_num']])+1),
               baRank: rankLookup["frc"+team['team_num']],
-              baRankFilter: (42- rankLookup["frc"+team['team_num']])
+              baRankFilter: (rankMax- rankLookup["frc"+team['team_num']]+1)
 
             })}) || [];
 
           callback({
-            teams
+            teams,
+            maxes: {"azRank": oprMax, "dpRank":dprMax, "baRank": rankMax, "scale": 10, "switch": 10, "exchange":10, "climbing":10}
           });
         },
         response => {

@@ -19,11 +19,15 @@ const Team = ({ team, sortOption, search, selected, selectTeam }) => (
         )}
       </h3>
     </div>
-    <div className={sortOption === 'azRank' ? 'active' : 'weekend'}>
-      {sortOption === 'baRank' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
+    
+    <div className={sortOption === 'baRankFilter' ? 'active' : 'weekend'}>
+      {sortOption === 'baRankFilter' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
     </div>
     <div className={sortOption === 'azRank' ? 'active' : 'daily'}>
-      {sortOption === 'azRank' ? null : 'AZTECH Rank: '} <span className="number">{team.azRank}</span>
+      {sortOption === 'azRank' ? null : 'Offensive Power Rank: '} <span className="number">{team.azRank}</span>
+    </div>
+    <div className={sortOption === 'dpRankFilter' ? 'active' : 'score'}>
+      {sortOption === 'dpRankFilter' ? null : 'Defensive Power Rank: '} <span className="number">{team.dpRank}</span>
     </div>
     <div style={{ marginTop: 20 }}>
       <Bar

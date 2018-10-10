@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import './TeamFilters.css';
 import '../../node_modules/react-input-range/lib/css/index.css';
+import ReactDOM from 'react-dom';
 
 class TeamFilters extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: { min: 2, max: 10 },
+      value: { min: 0, max: 100 },
     };
   }
   render() {
@@ -21,7 +22,9 @@ class TeamFilters extends Component {
             <div className="filter-item" key={filterOption.label}>
               <p>{filterOption.label}</p>
               <InputRange
-                maxValue={10}
+                allowSameValues
+                draggableTrack
+                maxValue={filterOption.max}
                 minValue={0}
                 step={1}
                 value={filterOption.value}
@@ -38,6 +41,7 @@ class TeamFilters extends Component {
     );
   }
 }
+
 TeamFilters.propTypes = {
   open: PropTypes.bool.isRequired,
   filterOptions: PropTypes.array.isRequired,

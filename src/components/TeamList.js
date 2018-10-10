@@ -14,7 +14,8 @@ const PAGE_LIMIT = 20;
 
 const SORT_OPTIONS = [
   { value: 'baRankFilter', label: 'Team Rank' },
-  { value: 'azRank', label: 'AZTECH Rank' },
+  { value: 'azRank', label: 'Offensive Power Rank' },
+  { value: 'dpRankFilter', label: 'Defensive Power Rank' },
   { value: 'switch', label: 'Switch' },
   { value: 'scale', label: 'Scale' },
   { value: 'exchange', label: 'Exchange' },
@@ -22,12 +23,13 @@ const SORT_OPTIONS = [
 ];
 
 const FILTER_OPTIONS = [
-  { value: 10, option: 'baRankFilter', label: 'Team Rank' },
-  { value: 10, option: 'azRank', label: 'AZTECH Rank' },
-  { value: 10, option: 'switch', label: 'Switch' },
-  { value: 10, option: 'scale', label: 'Scale' },
-  { value: 10, option: 'exchange', label: 'Exchange' },
-  { value: 10, option: 'climbing', label: 'Climbing' },
+  { value: {min: 0, max: 100}, max: 42, option: 'baRank', label: 'Team Rank' },
+  { value: {min: 0, max: 10}, max: 200, option: 'azRank', label: 'Offensive Power Rank' },
+  { value: {min: 0, max: 10}, max: 420, option: 'dpRank', label: 'Defensive Power Rank' },
+  { value: {min: 0, max: 10}, max: 420, option: 'switch', label: 'Switch' },
+  { value: {min: 0, max: 10}, max: 15, option: 'scale', label: 'Scale' },
+  { value: {min: 0, max: 10}, max: 10, option: 'exchange', label: 'Exchange' },
+  { value: {min: 0, max: 10}, max: 20, option: 'climbing', label: 'Climbing' },
 ];
 
 class TeamList extends Component {
@@ -61,6 +63,16 @@ class TeamList extends Component {
         pageCount: data.teams.length / PAGE_LIMIT,
         loading: false,
       });
+      console.log("MAXES")
+      console.log(data.maxes)
+      console.log("BEFORE")
+      console.log(FILTER_OPTIONS)
+      for(let i= 0; i <= FILTER_OPTIONS.length; i++){
+        FILTER_OPTIONS[i]["max"] = data.maxes[FILTER_OPTIONS[i].option]
+        FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
+      }
+      console.log("AFTER")
+      console.log(FILTER_OPTIONS)
     } else {
       this.setState({ error, loading: false });
     }
@@ -70,7 +82,7 @@ class TeamList extends Component {
     //Initialize the JavaScript client library.
     window.gapi.client
       .init({
-        apiKey: 'AIzaSyC1bxZaTOj6Nu8otaC-teW1Tb5anLaAG2E',
+        apiKey: process.env.REACT_APP_APIKEY,
         // Your API key will be automatically added to the Discovery Document URLs.
         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest'],
       })
@@ -96,15 +108,22 @@ class TeamList extends Component {
   handlePageClick = data => {
     const { selected } = data;
     const searchValue = this.state.search;
+    console.log("THIS IS THE SEARCH VALUE")
+    console.log(searchValue)
+    console.log(this.state.teams)
     const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredTeams);
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.switch <= filters.find(option => option.option === 'switch').value &&
-        team.scale <= filters.find(option => option.option === 'scale').value &&
-        team.exchange <= filters.find(option => option.option === 'exchange').value &&
-        team.climbing <= filters.find(option => option.option === 'climbing').value
+        team.switch <= filters.find(option => option.option === 'switch').value.max &&
+        team.scale <= filters.find(option => option.option === 'scale').value.max &&
+        team.exchange <= filters.find(option => option.option === 'exchange').value.max &&
+        team.climbing <= filters.find(option => option.option === 'climbing').value.max&&
+        team.switch >= filters.find(option => option.option === 'switch').value.min &&
+        team.scale >= filters.find(option => option.option === 'scale').value.min &&
+        team.exchange >= filters.find(option => option.option === 'exchange').value.min &&
+        team.climbing >= filters.find(option => option.option === 'climbing').value.min
 
     );
     this.setState({
@@ -120,10 +139,15 @@ class TeamList extends Component {
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.switch <= filters.find(option => option.option === 'switch').value &&
-        team.scale <= filters.find(option => option.option === 'scale').value &&
-        team.exchange <= filters.find(option => option.option === 'exchange').value &&
-        team.climbing <= filters.find(option => option.option === 'climbing').value 
+      team.switch <= filters.find(option => option.option === 'switch').value.max &&
+      team.scale <= filters.find(option => option.option === 'scale').value.max &&
+      team.exchange <= filters.find(option => option.option === 'exchange').value.max &&
+      team.climbing <= filters.find(option => option.option === 'climbing').value.max&&
+      team.switch >= filters.find(option => option.option === 'switch').value.min &&
+      team.scale >= filters.find(option => option.option === 'scale').value.min &&
+      team.exchange >= filters.find(option => option.option === 'exchange').value.min &&
+      team.climbing >= filters.find(option => option.option === 'climbing').value.min
+
 
     );
     this.setState({
@@ -153,12 +177,20 @@ class TeamList extends Component {
 
     const filteredArray = searchResults.filter(
       team =>
-        team.baRankFilter <= updatedFilterOptions.find(option => option.option === 'baRankFilter').value &&
-        team.azRank <= updatedFilterOptions.find(option => option.option === 'azRank').value &&
-        team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value &&
-        team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value &&
-        team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
-        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value
+        team.baRank <= updatedFilterOptions.find(option => option.option === 'baRank').value.max &&
+        team.azRank <= updatedFilterOptions.find(option => option.option === 'azRank').value.max &&
+        team.dpRank <= updatedFilterOptions.find(option => option.option === 'dpRank').value.max &&
+        team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value.max &&
+        team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value.max &&
+        team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value.max &&
+        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value.max &&
+        team.baRank >= updatedFilterOptions.find(option => option.option === 'baRank').value.min &&
+        team.azRank >= updatedFilterOptions.find(option => option.option === 'azRank').value.min &&
+        team.dpRank >= updatedFilterOptions.find(option => option.option === 'dpRank').value.min &&
+        team.switch >= updatedFilterOptions.find(option => option.option === 'switch').value.min &&
+        team.scale >= updatedFilterOptions.find(option => option.option === 'scale').value.min &&
+        team.exchange >= updatedFilterOptions.find(option => option.option === 'exchange').value.min &&
+        team.climbing >= updatedFilterOptions.find(option => option.option === 'climbing').value.min
         
     );
 
@@ -184,10 +216,14 @@ class TeamList extends Component {
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.switch <= filters.find(option => option.option === 'switch').value &&
-        team.scale <= filters.find(option => option.option === 'scale').value &&
-        team.exchange <= filters.find(option => option.option === 'exchange').value &&
-        team.climbing <= filters.find(option => option.option === 'climbing').value 
+      team.switch <= filters.find(option => option.option === 'switch').value.max &&
+      team.scale <= filters.find(option => option.option === 'scale').value.max &&
+      team.exchange <= filters.find(option => option.option === 'exchange').value.max &&
+      team.climbing <= filters.find(option => option.option === 'climbing').value.max&&
+      team.switch >= filters.find(option => option.option === 'switch').value.min &&
+      team.scale >= filters.find(option => option.option === 'scale').value.min &&
+      team.exchange >= filters.find(option => option.option === 'exchange').value.min &&
+      team.climbing >= filters.find(option => option.option === 'climbing').value.min 
         
     );
 
@@ -221,10 +257,15 @@ class TeamList extends Component {
     });
     const filteredArray = searchResults.filter(
       team =>
-        team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value &&
-        team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value &&
-        team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value &&
-        team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value
+      team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value.max &&
+      team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value.max &&
+      team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value.max &&
+      team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value.max&&
+      team.switch >= updatedFilterOptions.find(option => option.option === 'switch').value.min &&
+      team.scale >= updatedFilterOptions.find(option => option.option === 'scale').value.min &&
+      team.exchange >= updatedFilterOptions.find(option => option.option === 'exchange').value.min &&
+      team.climbing >= updatedFilterOptions.find(option => option.option === 'climbing').value.min 
+
        
     );
 
