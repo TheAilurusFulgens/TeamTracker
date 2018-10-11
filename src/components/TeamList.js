@@ -82,7 +82,8 @@ class TeamList extends Component {
     //Initialize the JavaScript client library.
     window.gapi.client
       .init({
-        apiKey: process.env.REACT_APP_APIKEY,
+        //apiKey: process.env.REACT_APP_APIKEY,
+        apiKey: 'AIzaSyC1bxZaTOj6Nu8otaC-teW1Tb5anLaAG2E',
         // Your API key will be automatically added to the Discovery Document URLs.
         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest'],
       })
