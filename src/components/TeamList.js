@@ -14,7 +14,7 @@ const PAGE_LIMIT = 20;
 
 const SORT_OPTIONS = [
   { value: 'baRankFilter', label: 'Team Rank' },
-  { value: 'azRank', label: 'Offensive Power Rank' },
+  { value: 'opRank', label: 'Offensive Power Rank' },
   { value: 'dpRankFilter', label: 'Defensive Power Rank' },
   { value: 'switch', label: 'Switch' },
   { value: 'scale', label: 'Scale' },
@@ -23,13 +23,13 @@ const SORT_OPTIONS = [
 ];
 
 const FILTER_OPTIONS = [
-  { value: {min: 0, max: 100}, max: 42, option: 'baRank', label: 'Team Rank' },
-  { value: {min: 0, max: 10}, max: 200, option: 'azRank', label: 'Offensive Power Rank' },
-  { value: {min: 0, max: 10}, max: 420, option: 'dpRank', label: 'Defensive Power Rank' },
-  { value: {min: 0, max: 10}, max: 420, option: 'switch', label: 'Switch' },
-  { value: {min: 0, max: 10}, max: 15, option: 'scale', label: 'Scale' },
+  { value: {min: 0, max: 10}, max: 10, option: 'baRank', label: 'Team Rank' },
+  { value: {min: 0, max: 10}, max: 10, option: 'opRank', label: 'Offensive Power Rank' },
+  { value: {min: 0, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
+  { value: {min: 0, max: 10}, max: 10, option: 'switch', label: 'Switch' },
+  { value: {min: 0, max: 10}, max: 10, option: 'scale', label: 'Scale' },
   { value: {min: 0, max: 10}, max: 10, option: 'exchange', label: 'Exchange' },
-  { value: {min: 0, max: 10}, max: 20, option: 'climbing', label: 'Climbing' },
+  { value: {min: 0, max: 10}, max: 10, option: 'climbing', label: 'Climbing' },
 ];
 
 class TeamList extends Component {
@@ -178,14 +178,14 @@ class TeamList extends Component {
     const filteredArray = searchResults.filter(
       team =>
         team.baRank <= updatedFilterOptions.find(option => option.option === 'baRank').value.max &&
-        team.azRank <= updatedFilterOptions.find(option => option.option === 'azRank').value.max &&
+        team.opRank <= updatedFilterOptions.find(option => option.option === 'opRank').value.max &&
         team.dpRank <= updatedFilterOptions.find(option => option.option === 'dpRank').value.max &&
         team.switch <= updatedFilterOptions.find(option => option.option === 'switch').value.max &&
         team.scale <= updatedFilterOptions.find(option => option.option === 'scale').value.max &&
         team.exchange <= updatedFilterOptions.find(option => option.option === 'exchange').value.max &&
         team.climbing <= updatedFilterOptions.find(option => option.option === 'climbing').value.max &&
         team.baRank >= updatedFilterOptions.find(option => option.option === 'baRank').value.min &&
-        team.azRank >= updatedFilterOptions.find(option => option.option === 'azRank').value.min &&
+        team.opRank >= updatedFilterOptions.find(option => option.option === 'opRank').value.min &&
         team.dpRank >= updatedFilterOptions.find(option => option.option === 'dpRank').value.min &&
         team.switch >= updatedFilterOptions.find(option => option.option === 'switch').value.min &&
         team.scale >= updatedFilterOptions.find(option => option.option === 'scale').value.min &&

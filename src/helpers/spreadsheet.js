@@ -36,8 +36,7 @@ export function load(callback) {
     let oprArr = Object.values(opRank);
     oprMax = Math.round(Math.max(...oprArr))
     dpRank = oprank.data.dprs
-    let dprArr = Object.values(dpRank);
-    dprMax = Math.round(Math.max(...dprArr))
+    dprMax = Math.round(Math.max(...Object.values(dpRank)))
   }));  
 
   
@@ -103,17 +102,19 @@ export function load(callback) {
               scale: team["scale"],
               exchange: team["exchange"],
               climbing: team["climbing"],
-              azRank: Math.round(opRank["frc"+team['team_num']]),
+              opRank: Math.round(opRank["frc"+team['team_num']]),
               dpRank: Math.round(dpRank["frc"+team['team_num']]),
               dpRankFilter: (dprMax - Math.round(dpRank["frc"+team['team_num']])+1),
               baRank: rankLookup["frc"+team['team_num']],
               baRankFilter: (rankMax- rankLookup["frc"+team['team_num']]+1)
 
             })}) || [];
-
+            // var scaleMax = Math.round(Math.max(...Object.values(teams.scale)))
+            // console.log(scaleMax)
+            // console.log("hi")
           callback({
             teams,
-            maxes: {"azRank": oprMax, "dpRank":dprMax, "baRank": rankMax, "scale": 10, "switch": 10, "exchange":10, "climbing":10}
+            maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, "scale": 10, "switch": 10, "exchange":10, "climbing":10}
           });
         },
         response => {
