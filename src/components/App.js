@@ -12,14 +12,14 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">TeamTracker</h1>
           <p>
-            Team Scouting App created by the AzTECH
+            Team Scouting App created by the AZTECH
           </p>
         </header>
         <TeamList />
         <footer className="App-footer">
           <p>
             Made by{' '}
-            <a href="https://twitter.com/cdsrobotics">AzTECH 6479</a>
+            <a href="https://sites.google.com/view/cdsrobotics">AZTECH 6479</a>
           </p>
         </footer>
       </div>

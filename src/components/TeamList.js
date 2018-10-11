@@ -63,16 +63,18 @@ class TeamList extends Component {
         pageCount: data.teams.length / PAGE_LIMIT,
         loading: false,
       });
-      console.log("MAXES")
-      console.log(data.maxes)
-      console.log("BEFORE")
-      console.log(FILTER_OPTIONS)
+      // console.log("MAXES")
+      // console.log(data.maxes)
+      // console.log("BEFORE")
+      // console.log(FILTER_OPTIONS)
       for(let i= 0; i <= FILTER_OPTIONS.length; i++){
         FILTER_OPTIONS[i]["max"] = data.maxes[FILTER_OPTIONS[i].option]
         FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
+        console.log(FILTER_OPTIONS[i].option)
       }
-      console.log("AFTER")
-      console.log(FILTER_OPTIONS)
+      // console.log(FILTER_OPTION[i].option)
+      // console.log("AFTER")
+      // console.log(FILTER_OPTIONS)
     } else {
       this.setState({ error, loading: false });
     }
@@ -253,7 +255,7 @@ class TeamList extends Component {
     const searchResults = this.findMatches(searchValue, filteredTeams);
     // Now lets filter out those results
     const updatedFilterOptions = this.state.filterOptions.map(filterOption => {
-      filterOption.value = 10;
+      filterOption.value = {min: 0, max: filterOption.max}
       return filterOption;
     });
     const filteredArray = searchResults.filter(
@@ -266,8 +268,6 @@ class TeamList extends Component {
       team.scale >= updatedFilterOptions.find(option => option.option === 'scale').value.min &&
       team.exchange >= updatedFilterOptions.find(option => option.option === 'exchange').value.min &&
       team.climbing >= updatedFilterOptions.find(option => option.option === 'climbing').value.min 
-
-       
     );
 
     this.setState({
