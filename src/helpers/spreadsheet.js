@@ -17,12 +17,13 @@ export function load(callback) {
   var dpRank = {}
   var dprMax = 0
   var oprMax = 0
+  var Pitdata = {}
   var blueAllianceConfig = {
     headers: {'Accept': 'application/json', 'X-TBA-Auth-Key':'NTzpTFdnASplharZXjaUdE2yCTRw0LXD9cVSz9Ox2ulKRuJXfpvNyThzSudidh2X'}
   };
   axios.all([
-    axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/rankings', blueAllianceConfig),
-    axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/teams/simple', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/rankings', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/teams/simple', blueAllianceConfig),
     //axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/oprs', blueAllianceConfig), // after 30 matches
     axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/oprs', blueAllianceConfig),
     axios.get('https://www.thebluealliance.com/api/v3/event/2018azfl/oprs', blueAllianceConfig)
@@ -40,7 +41,26 @@ export function load(callback) {
     dprMax = Math.round(Math.max(...Object.values(dpRank)))
   }));  
 
-  
+  window.gapi.client.load("sheets", "v4", () => {
+    window.gapi.client.sheets.spreadsheets.values
+      .get({
+        spreadsheetId: '1_5FidK4H7Ewlp0RVw2CZ2sDCwKcvLsqXOb_5SaAo8Qk',
+        range: "Form Responses 1",
+        valueRenderOption: "UNFORMATTED_VALUE"
+      })
+      .then(
+        Pitresponse => {
+          const data = Pitresponse.result.values
+          Pitdata = data.map((row) => ({
+            team_num: row[1],
+            capable: row[2],
+            strengths: row[3],
+            climb: row[4],
+            comments: row[5]
+          }))
+          //console.log(records)
+        })
+      })
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .get({
@@ -108,11 +128,12 @@ export function load(callback) {
               dpRankFilter: (dprMax - Math.round(dpRank["frc"+team['team_num']])+1),
               baRank: rankLookup["frc"+team['team_num']],
               baRankFilter: (rankMax- rankLookup["frc"+team['team_num']]+1),
-              matches: records.filter(rec => rec.team_num == team.team_num)
+              matches: records.filter(rec => rec.team_num == team.team_num),
+              pit: Pitdata.filter(rec => rec.team_num == team.team_num)
             })}) || [];
             // var scaleMax = Math.round(Math.max(...Object.values(teams.scale)))
             // console.log(scaleMax)
-            console.log(dpRank)
+            console.log(teams)
           callback({
             teams,
             maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, "scale": 10, "switch": 10, "exchange":10, "climbing":10}
