@@ -18,7 +18,7 @@
 .TeamList .search input {
   padding: 10px;
   font-size: 14px;
-  max-width: 300px;
+  max-width: 350px;
   width: 100%;
   background: #fff;
   border: none;
@@ -39,7 +39,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 15px;
+  padding: 17px;
 }
 
 .TeamList .filters .filter-wrapper {
@@ -59,7 +59,7 @@
 .TeamList .filters .filter {
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  min-width: 200px;
+  min-width: 240px;
 }
 
 .TeamList .filters .filter .filter__control {
@@ -156,6 +156,22 @@
 .comparing-buttons button.main {
   background: #6aa84f;
   color: #fff;
+}
+
+.wordwrap { 
+  white-space: pre-line !important; 
+  word-wrap: break-word; 
+}
+
+.team-table{
+  margin:50px;
+  border-radius: 0px !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px
+}
+
+.headBold{
+  font-weight: bold
 }
 
 @media (min-width: 800px) {

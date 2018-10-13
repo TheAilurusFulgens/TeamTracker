@@ -7,6 +7,10 @@ import Team from './Team';
 import TeamFilters from './TeamFilters';
 import BestOfEach from './BestOfEach';
 import './TeamList.css';
+import { render } from "react-dom";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import _ from "lodash";
 
 import NotFound from './not-found.gif';
 
@@ -46,6 +50,8 @@ class TeamList extends Component {
     comparing: false,
     open: false,
     filterOptions: FILTER_OPTIONS,
+    drillDownSpecificTeam: null
+
   };
 
   componentDidMount() {
@@ -63,18 +69,10 @@ class TeamList extends Component {
         pageCount: data.teams.length / PAGE_LIMIT,
         loading: false,
       });
-      // console.log("MAXES")
-      // console.log(data.maxes)
-      // console.log("BEFORE")
-      // console.log(FILTER_OPTIONS)
       for(let i= 0; i <= FILTER_OPTIONS.length; i++){
         FILTER_OPTIONS[i]["max"] = data.maxes[FILTER_OPTIONS[i].option]
         FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
-        console.log(FILTER_OPTIONS[i].option)
       }
-      // console.log(FILTER_OPTION[i].option)
-      // console.log("AFTER")
-      // console.log(FILTER_OPTIONS)
     } else {
       this.setState({ error, loading: false });
     }
@@ -111,9 +109,6 @@ class TeamList extends Component {
   handlePageClick = data => {
     const { selected } = data;
     const searchValue = this.state.search;
-    console.log("THIS IS THE SEARCH VALUE")
-    console.log(searchValue)
-    console.log(this.state.teams)
     const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredTeams);
     const filters = this.state.filterOptions;
@@ -167,7 +162,6 @@ class TeamList extends Component {
     const searchValue = this.state.search;
     const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredTeams);
-    console.log(FILTER_OPTIONS);
     // Updated the filter first
     const filters = this.state.filterOptions;
     const updatedFilterOptions = filters.map(filterOption => {
@@ -239,7 +233,11 @@ class TeamList extends Component {
 
   compare = () => {
     const comparingState = this.state.comparing;
-    this.setState({ comparing: !comparingState });
+    this.setState({ comparing: !comparingState});
+  };
+
+  setSelectedTeamToNull = () => {
+    this.setState({ drillDownSpecificTeam: null });
   };
 
   clearList = () => {
@@ -248,6 +246,13 @@ class TeamList extends Component {
       selectedTeams: [],
     });
   };
+
+  childUpdated = (team) => {
+    console.log(team)
+    this.setState({
+      drillDownSpecificTeam: team
+    });
+  }
 
   clearFilters = () => {
     const searchValue = this.state.search;
@@ -288,7 +293,7 @@ class TeamList extends Component {
             type="text"
             name="search"
             id="search"
-            placeholder="Start typing a team number..."
+            placeholder="Type a team number..."
             value={this.state.search}
             onChange={e => this.handleSearch(e)}
           />
@@ -356,6 +361,7 @@ class TeamList extends Component {
             search={this.state.search}
             selectTeam={this.selectTeam}
             selected={this.state.selectedTeams.indexOf(team) !== -1}
+            childUpdated={this.childUpdated}
           />
         ))
       ) : (
@@ -378,10 +384,118 @@ class TeamList extends Component {
             search={this.state.search}
             selectTeam={this.selectTeam}
             selected={this.state.selectedTeams.indexOf(team) !== -1}
+            childUpdated={this.childUpdated}
           />
         ))}
       </ul>
       {this.state.selectedTeams.length ? <BestOfEach selectedTeams={this.state.selectedTeams} /> : null}
+    </div>
+  );
+
+  renderMatchTable = () => (
+    <div className='team-table' style={{borderRadius: '5px'}}>
+    <p>
+      <h1 style={{ fontWeight: 1000 }}>{this.state.drillDownSpecificTeam.name}</h1>
+    </p>
+      <p><h3>Blue Alliance Rank: {this.state.drillDownSpecificTeam.baRank}</h3></p>
+      <p><h3>Offensive Power Rank: {this.state.drillDownSpecificTeam.opRank}</h3></p>
+      <p><h3>Defensive Power Rank: {this.state.drillDownSpecificTeam.dpRank}</h3></p>
+      <ReactTable
+          data={this.state.drillDownSpecificTeam.matches}
+          columns={[
+            {
+              columns: [
+                {
+                  Header: "Match Number",
+                  headerClassName: 'headBold',
+                  accessor: "match_num",
+                  maxWidth: 150
+                },
+                {
+                  Header: "Autonomous",
+                  headerClassName: 'headBold',
+                  id: "lastName",
+                  accessor: "autonomous",
+                  className: "wordwrap"
+                }
+              ]
+            },
+            {
+              columns: [
+                
+                {
+                  Header: "Switch",
+                  headerClassName: 'headBold',
+                  accessor: "switch",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.switch*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Scale",
+                  headerClassName: 'headBold',
+                  accessor: "scale",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.scale*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Exchange",
+                  headerClassName: 'headBold',
+                  accessor: "exchange",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.exchange*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Climbing",
+                  headerClassName: 'headBold',
+                  accessor: "climbing",
+                  maxWidth: 150,
+                  Footer: (
+                    <span>
+                      <strong>Climbing:</strong>{" "}
+                      {
+                        _.first(
+                          _.reduce(
+                            _.map(_.groupBy(this.state.drillDownSpecificTeam.matches, d => d.climbing)),
+                            (a, b) => (a.length > b.length ? a : b)
+                          )
+                        ).climbing
+                      }
+                    </span>
+                  )
+                },
+                {
+                  Header: "Comments",
+                  headerClassName: 'headBold',
+                  accessor: "comments",
+                  className: "wordwrap"
+                }
+              ]
+            },
+          ]}
+          showPagination={false}
+          style={{
+            height: "400px" // This will force the table body to overflow and scroll, since there is not enough room
+          }}
+          //defaultPageSize={-1}
+          defaultPageSize={10}
+          className="-striped -highlight"
+        />
+        <br />
     </div>
   );
 
@@ -398,13 +512,20 @@ class TeamList extends Component {
     }
     return (
       <div>
-        {!this.state.comparing ? this.renderFullList() : this.renderCompareList()}
+        {this.state.drillDownSpecificTeam == null ? (!this.state.comparing ? this.renderFullList() : this.renderCompareList()) : this.renderMatchTable()}
         {this.state.selectedTeams.length ? (
           <div className="comparing-buttons">
             <button className="main" onClick={() => this.compare()}>
               {this.state.comparing ? 'Cancel' : 'Compare'}
             </button>
             <button onClick={() => this.clearList()}>Clear List</button>
+          </div>
+        ) : null}
+        {this.state.drillDownSpecificTeam != null ? (
+          <div className="comparing-buttons">
+            <button className="main" onClick={() => this.setSelectedTeamToNull()}>
+              Back
+            </button>
           </div>
         ) : null}
       </div>

@@ -29,12 +29,11 @@ export function load(callback) {
     //console.log(team.data); // ex.: { user: 'Your User'}
     //console.log(team.status); // ex.: 200
     rank.data.rankings.forEach((d) => rankLookup[d.team_key] = d.rank)
-    let rankArr = Object.values(rankLookup);
-    rankMax = Math.round(Math.max(...rankArr))
+    rankMax = Math.round(Math.max(...Object.values(rankLookup)))
     team.data.forEach((d) => teamName[d.team_number] = d.nickname)
+
     opRank = oprank.data.oprs
-    let oprArr = Object.values(opRank);
-    oprMax = Math.round(Math.max(...oprArr))
+    oprMax = Math.round(Math.max(...Object.values(opRank)))
     dpRank = oprank.data.dprs
     dprMax = Math.round(Math.max(...Object.values(dpRank)))
   }));  
@@ -59,7 +58,7 @@ export function load(callback) {
             scale: row[5],
             exchange: row[6],
             climbing: row[7],
-            comments: row[8]
+            comments: row[8],
           }))
 
           var switch_sums = {}, scale_sums = {}, exchange_sums = {}, climbing_sums ={}, counts = {}, results = [], name;
@@ -106,8 +105,8 @@ export function load(callback) {
               dpRank: Math.round(dpRank["frc"+team['team_num']]),
               dpRankFilter: (dprMax - Math.round(dpRank["frc"+team['team_num']])+1),
               baRank: rankLookup["frc"+team['team_num']],
-              baRankFilter: (rankMax- rankLookup["frc"+team['team_num']]+1)
-
+              baRankFilter: (rankMax- rankLookup["frc"+team['team_num']]+1),
+              matches: records.filter(rec => rec.team_num == team.team_num)
             })}) || [];
             // var scaleMax = Math.round(Math.max(...Object.values(teams.scale)))
             // console.log(scaleMax)

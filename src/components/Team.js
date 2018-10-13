@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
 import { Bar } from 'react-chartjs-2';
 import './Team.css';
+//import { set, get } from "./localStorage";
 
-const Team = ({ team, sortOption, search, selected, selectTeam }) => (
+const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) => (
   <li className="Team">
     <div>
       <h3>
@@ -15,7 +16,7 @@ const Team = ({ team, sortOption, search, selected, selectTeam }) => (
             </span>
           ))
         ) : (
-          <span>{team.name}</span>
+          <span><a href='team' onClick= {e => {e.preventDefault(); childUpdated(team)}}>{team.name}</a></span>
         )}
       </h3>
     </div>
