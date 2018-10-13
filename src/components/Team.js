@@ -10,11 +10,12 @@ const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) 
     <div>
       <h3>
         {search ? (
-          reactStringReplace(team.name, search, (match, i) => (
-            <span key={i} className="hl">
-              {match}
-            </span>
-          ))
+          //reactStringReplace(team.name, search, (match, i) => (
+            <span><a href='team' onClick= {e => {e.preventDefault(); childUpdated(team)}}>{team.name}</a></span>
+            // <span key={i} className="hl ">
+            //   {match}
+            // </span>
+          
         ) : (
           <span><a href='team' onClick= {e => {e.preventDefault(); childUpdated(team)}}>{team.name}</a></span>
         )}
