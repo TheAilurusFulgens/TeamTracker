@@ -29,7 +29,7 @@ const SORT_OPTIONS = [
 const FILTER_OPTIONS = [
   { value: {min: 0, max: 10}, max: 10, option: 'baRank', label: 'Team Rank' },
   { value: {min: 0, max: 10}, max: 10, option: 'opRank', label: 'Offensive Power Rank' },
-  { value: {min: 0, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
+  { value: {min: -20, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
   { value: {min: 0, max: 10}, max: 10, option: 'switch', label: 'Switch' },
   { value: {min: 0, max: 10}, max: 10, option: 'scale', label: 'Scale' },
   { value: {min: 0, max: 10}, max: 10, option: 'exchange', label: 'Exchange' },
