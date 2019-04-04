@@ -74,6 +74,7 @@ class TeamList extends Component {
         FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
       }
     } else {
+      console.log(error)
       this.setState({ error, loading: false });
     }
   };

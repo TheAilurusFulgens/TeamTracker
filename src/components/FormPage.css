@@ -1,0 +1,33 @@
+.FormPage{
+    display: table;
+    margin: auto;
+}
+h2 {
+    font-size: 29px;
+    font-weight: lighter;
+    display: inline-block;
+    font-family:'Open Sans', sans-serif;
+    margin:0;
+    margin-right: 42px;
+    margin-left: 42px;
+}
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    margin-top: 25px;
+    margin-right: 10px;
+    border-bottom: 25px solid red;
+    display: inline-block;
+}
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    margin-top: 30px;
+    margin-left: 10px;
+    border-top: 25px solid #555;
+    display: inline-block;
+}

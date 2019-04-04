@@ -1,0 +1,33 @@
+body { 
+    font-family: monospace; 
+  }
+  
+  button { 
+    box-sizing: border-box;
+    margin: 5px 2px 10px 0; 
+    padding: 5px 8px;
+    width: 50px;
+  }
+  
+  #timer {
+    font-size: 1.45em;
+    font-weight: 100;
+  }
+  
+  li {
+    margin: 8px 0;
+  }
+  
+  h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .done {
+    color: rgba(0, 0, 0, 0.3);
+    text-decoration: line-through;
+  }
+  
+  input {
+    margin-right: 5px;
+  }

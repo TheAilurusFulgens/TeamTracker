@@ -45,11 +45,11 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidenav{
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1; 
+  top: 0;
+  overflow-x: hidden;
 }

@@ -1,0 +1,56 @@
+.TeamPage {
+    background: #f1f1f1;
+  }
+  
+   .TeamPage-logo {
+    animation: App-logo-spin infinite 1800 linear;
+    height: 120px;
+  } 
+  
+   .TeamPage-logo-small {
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+  } 
+  
+  .TeamPage-header,
+  .TeamPage-footer {
+    background-color: #222;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  
+  .TeamPage-header p {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .TeamPage-header p a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .TeamPage-footer a {
+    text-decoration: underline;
+    color: #fff;
+  }
+  
+  .TeamPage-title {
+    font-size: 2.5em;
+  }
+  
+  .TeamPage-intro {
+    font-size: large;
+  }
+  
+  @keyframes TeamPage-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
