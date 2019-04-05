@@ -22,9 +22,9 @@ export function load(callback) {
     headers: {'Accept': 'application/json', 'X-TBA-Auth-Key':'NTzpTFdnASplharZXjaUdE2yCTRw0LXD9cVSz9Ox2ulKRuJXfpvNyThzSudidh2X'}
   };
   axios.all([
-    axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/rankings', blueAllianceConfig),
-    axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/teams/simple', blueAllianceConfig),
-    axios.get('https://www.thebluealliance.com/api/v3/event/2018aztem/oprs', blueAllianceConfig), // after 30 matches
+    axios.get('https://www.thebluealliance.com/api/v3/event/2019azpx/rankings', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2019azpx/teams/simple', blueAllianceConfig),
+    axios.get('https://www.thebluealliance.com/api/v3/event/2019azpx/oprs', blueAllianceConfig), // after 30 matches
     // axios.get('https://www.thebluealliance.com/api/v3/event/2018azpx/oprs', blueAllianceConfig),
     // axios.get('https://www.thebluealliance.com/api/v3/event/2018azfl/oprs', blueAllianceConfig)
   ])
@@ -73,56 +73,171 @@ export function load(callback) {
           const data = response.result.values;
           
           let records = data.map((row) => ({
+            // team_num: row[1],
+            // match_num: row[2],
+            // autonomous: row[3],
+            // switch: row[4],
+            // scale: row[5],
+            // exchange: row[6],
+            // climbing: row[7],
+            // comments: row[8],
             team_num: row[1],
             match_num: row[2],
-            autonomous: row[3],
-            switch: row[4],
-            scale: row[5],
-            exchange: row[6],
-            climbing: row[7],
-            comments: row[8],
+            starting_HAB_Level: row[3],
+            line_pass: row[4],
+            auto_cargoship_hatch: row[5],
+            auto_cargoship_cargo: row[6],
+            auto_rocket_cargo_lvl1: row[7],
+            auto_rocket_cargo_lvl2: row[8],
+            auto_rocket_cargo_lvl3: row[9],
+            auto_rocket_hatch_lvl1: row[10],
+            auto_rocket_hatch_lvl2: row[11],
+            auto_rocket_hatch_lvl3: row[12],
+            teleop_cargoship_cargo: row[13],
+            teleop_cargoship_hatch: row[14],
+            teleop_rocket_cargo_lvl1: row[15],
+            teleop_rocket_cargo_lvl2: row[16],
+            teleop_rocket_cargo_lvl3: row[17],
+            teleop_rocket_hatch_lvl1: row[18],
+            teleop_rocket_hatch_lvl2: row[19],
+            teleop_rocket_hatch_lvl3: row[20],
+            HAB_climb: row[21],
+            comments: row[22],
+            immobilized: row[23],
+            scout_name: row[24],
           }))
 
-          var switch_sums = {}, scale_sums = {}, exchange_sums = {}, climbing_sums ={}, counts = {}, results = [], name;
+          var cargoship_cargo_sums = {}, cargoship_hatch_sums = {}, rocket_cargo_sums = {}, rocket_hatch_sums = {}, 
+          rocket_cargo_lvl1_sums = {}, rocket_cargo_lvl2_sums = {}, rocket_cargo_lvl3_sums = {}, 
+          rocket_hatch_lvl1_sums = {}, rocket_hatch_lvl2_sums = {}, rocket_hatch_lvl3_sums = {}, 
+          HAB_start_level_sum = {}, HAB_climb_sum = {}, line_pass_sum = {}, immobilized_sum = {}, counts = {}, results = [], name;
+
           for (var i = 1; i < records.length; i++) {
               name = records[i].team_num;
-              if (!(name in switch_sums)) {
-                scale_sums[name] = 0;
-                exchange_sums[name] = 0;
-                switch_sums[name] = 0;
-                climbing_sums[name] = 0;
+              if (!(name in cargoship_cargo_sums)) {
+
+                cargoship_cargo_sums[name] = 0;
+                cargoship_hatch_sums[name] = 0;
+
+                rocket_cargo_sums[name] = 0;
+                rocket_hatch_sums[name] = 0;
+
+                rocket_cargo_lvl1_sums[name] = 0;
+                rocket_cargo_lvl2_sums[name] = 0;
+                rocket_cargo_lvl3_sums[name] = 0;
+
+                rocket_hatch_lvl1_sums[name] = 0;
+                rocket_hatch_lvl2_sums[name] = 0;
+                rocket_hatch_lvl3_sums[name] = 0;
+
+                HAB_start_level_sum[name] = 0;
+                HAB_climb_sum[name] = 0;
+
+                line_pass_sum[name] = 0;
+                immobilized_sum[name] = 0;
+
                 counts[name] = 0;
               }
-              switch_sums[name] += records[i].switch;
-              scale_sums[name] += records[i].scale;
-              exchange_sums[name] += records[i].exchange;
-              if(records[i].climbing ==="Yes"){
-                climbing_sums[name] += 2
+              cargoship_cargo_sums[name] += (records[i].auto_cargoship_cargo + records[i].teleop_cargoship_cargo);
+              cargoship_hatch_sums[name] += (records[i].auto_cargoship_hatch + records[i].teleop_cargoship_hatch);
+
+              rocket_cargo_lvl1_sums[name] += (records[i].auto_rocket_cargo_lvl1 + records[i].teleop_rocket_cargo_lvl1);
+              rocket_cargo_lvl2_sums[name] += (records[i].auto_rocket_cargo_lvl2 + records[i].teleop_rocket_cargo_lvl2);
+              rocket_cargo_lvl3_sums[name] += (records[i].auto_rocket_cargo_lvl3 + records[i].teleop_rocket_cargo_lvl3);
+
+              rocket_hatch_lvl1_sums[name] += (records[i].auto_rocket_hatch_lvl1 + records[i].teleop_rocket_hatch_lvl1);
+              rocket_hatch_lvl2_sums[name] += (records[i].auto_rocket_hatch_lvl2 + records[i].teleop_rocket_hatch_lvl2);
+              rocket_hatch_lvl3_sums[name] += (records[i].auto_rocket_hatch_lvl3 + records[i].teleop_rocket_hatch_lvl3);
+
+              rocket_cargo_sums[name] = rocket_cargo_lvl1_sums[name] + rocket_cargo_lvl2_sums[name] + rocket_cargo_lvl3_sums[name];
+              rocket_hatch_sums[name] = rocket_hatch_lvl1_sums[name] + rocket_hatch_lvl2_sums[name] + rocket_hatch_lvl3_sums[name];
+
+              if(records[i].starting_HAB_Level ==="level 1"){
+                HAB_start_level_sum[name] += 1
               }
-              if(records[i].climbing ==="Attempted"){
-                climbing_sums[name] += 1
+              if(records[i].climbing ==="level 2"){
+                HAB_start_level_sum[name] += 2
               }
-              if(records[i].climbing ==="No"){
-                climbing_sums[name] += 0
+
+              if(records[i].HAB_climb === "level 1"){
+                HAB_climb_sum[name] += 1
               }
+              if(records[i].HAB_climb === "level 2"){
+                HAB_climb_sum[name] += 2
+              }
+              if(records[i].HAB_climb === "level 3"){
+                HAB_climb_sum[name] += 3
+              }
+              if(records[i].HAB_climb === "helped other robot to level 2"){
+                HAB_climb_sum[name] += 2
+              }
+              if(records[i].HAB_climb === "helped other robot to level 3"){
+                HAB_climb_sum[name] += 3
+              }
+              if(records[i].HAB_climb === "did not climb"){
+                HAB_climb_sum[name] += 0
+              }
+
+              if(records[i].line_pass === "yes"){
+                line_pass_sum[name] += 1
+              }
+              if(records[i].line_pass === "no"){
+                line_pass_sum[name] += 0
+              }
+
+              if(records[i].immobilized === "no"){
+                immobilized_sum[name] += 1
+              }
+              if(records[i].immobilized === "yes"){
+                immobilized_sum[name] += 1
+              }
+
               counts[name]++;
           }
 
-          for(name in switch_sums) {
-              results.push({ team_num: name, switch: switch_sums[name] / counts[name],
-              scale: scale_sums[name] / counts[name],  exchange: exchange_sums[name] / counts[name],   
-              climbing: climbing_sums[name] / counts[name]});
-          }
+          for(name in cargoship_cargo_sums) {
+              results.push({ team_num: name, 
+                cargoship_cargo: cargoship_cargo_sums[name] / counts[name],
+                cargoship_hatch: cargoship_hatch_sums[name] / counts[name],
+
+                rocket_cargo: rocket_cargo_sums[name] / counts[name],
+                rocket_hatch: rocket_hatch_sums[name] / counts[name],  
+
+                rocket_cargo_lvl1: rocket_cargo_lvl1_sums[name] / counts[name],
+                rocket_cargo_lvl2: rocket_cargo_lvl2_sums[name] / counts[name],
+                rocket_cargo_lvl3: rocket_cargo_lvl3_sums[name] / counts[name],
+
+                rocket_hatch_lvl1: rocket_hatch_lvl1_sums[name] / counts[name],
+                rocket_hatch_lvl2: rocket_hatch_lvl2_sums[name] / counts[name],
+                rocket_hatch_lvl3: rocket_hatch_lvl3_sums[name] / counts[name],
+
+                HAB_start_level: HAB_start_level_sum[name] / counts[name],
+                HAB_climb: HAB_climb_sum[name] / counts[name],
+
+                line_pass: line_pass_sum[name] / counts[name],
+                immobilized: immobilized_sum[name] / counts[name]
+              });
+            }
 
           let teams =
             results.map(team => {
               return ({
               number: team['team_num'],
               name: "Team "+ team['team_num'] + " - " + teamName[team['team_num']],
-              switch: team["switch"],
-              scale: team["scale"],
-              exchange: team["exchange"],
-              climbing: team["climbing"],
+              cargoship_cargo: team['cargoship_cargo'],
+              cargoship_hatch: team['cargoship_hatch'],
+              rocket_cargo: team['rocket_cargo'],
+              rocket_hatch: team['rocket_hatch'],
+              rocket_cargo_lvl1: team['rocket_cargo_lvl1'],
+              rocket_cargo_lvl2: team['rocket_cargo_lvl2'],
+              rocket_cargo_lvl3: team['rocket_cargo_lvl3'],
+              rocket_hatch_lvl1: team['rocket_hatch_lvl1'],
+              rocket_hatch_lvl2: team['rocket_hatch_lvl2'],
+              rocket_hatch_lvl3: team['rocket_hatch_lvl3'],
+              HAB_start_level: team['HAB_start_level'],
+              HAB_climb: team['HAB_climb'],
+              line_pass: team['line_pass'],
+              immobilized: team['immobilized'],
               opRank: Math.round(opRank["frc"+team['team_num']]),
               dpRank: Math.round(dpRank["frc"+team['team_num']]),
               dpRankFilter: (dprMax - Math.round(dpRank["frc"+team['team_num']])+1),
@@ -136,7 +251,11 @@ export function load(callback) {
             //console.log(teams)
           callback({
             teams,
-            maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, "scale": 10, "switch": 10, "exchange":10, "climbing":10}
+            maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, 
+            "cargoship_cargo": 10, "cargoship_hatch": 10, "rocket_cargo":10, "rocket_hatch":10,
+            "rocket_cargo_lvl1": 10, "rocket_cargo_lvl2":10, "rocket_cargo_lvl3":10, 
+            "rocket_hatch_level1":10, "rocket_hatch_level2":10, "rocket_hatch_level3":10,
+          }
           });
         },
         response => {

@@ -28,16 +28,43 @@ class BestOfEach extends Component {
             Defensive Power Rank: <span style={{ fontWeight: 600 }}>{this.findBest('dpRankFilter')}</span>
           </p>
           <p>
-            Switch: <span style={{ fontWeight: 600 }}>{this.findBest('switch')}</span>
+            HAB Start Level: <span style={{ fontWeight: 600 }}>{this.findBest('HAB_start_level')}</span>
           </p>
           <p>
-            Scale: <span style={{ fontWeight: 600 }}>{this.findBest('scale')}</span>
+            Line Pass: <span style={{ fontWeight: 600 }}>{this.findBest('line_pass')}</span>
           </p>
           <p>
-            Exchange: <span style={{ fontWeight: 600 }}>{this.findBest('exchange')}</span>
+            Cargo Ship Cargo: <span style={{ fontWeight: 600 }}>{this.findBest('cargoship_cargo')}</span>
           </p>
           <p>
-            Climbing: <span style={{ fontWeight: 600 }}>{this.findBest('climbing')}</span>
+            Cargo Ship Hatches: <span style={{ fontWeight: 600 }}>{this.findBest('cargoship_hatch')}</span>
+          </p>
+          <p>
+            Rocket Cargo: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_cargo')}</span>
+          </p>
+          <p>
+            Rocket Hatches: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch')}</span>
+          </p>
+          <p>
+            Rocket Cargo Level 1: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_cargo_lvl1')}</span>
+          </p>
+          <p>
+            Rocket Cargo Level 2: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_cargo_lvl2')}</span>
+          </p>
+          <p>
+            Rocket Cargo Level 3: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_cargo_lvl3')}</span>
+          </p>
+          <p>
+            Rocket Hatches Level 1: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl1')}</span>
+          </p>
+          <p>
+            Rocket Hatches Level 2: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl 2')}</span>
+          </p>
+          <p>
+            Rocket Hatches Level 3: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl 3')}</span>
+          </p>
+          <p>
+            HAB Climb Level: <span style={{ fontWeight: 600 }}>{this.findBest('HAB_climb')}</span>
           </p>
         </div>
       );
