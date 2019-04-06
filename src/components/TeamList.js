@@ -37,16 +37,19 @@ const SORT_OPTIONS = [
 const FILTER_OPTIONS = [
   { value: {min: 0, max: 10}, max: 10, option: 'baRank', label: 'Team Rank' },
   { value: {min: 0, max: 10}, max: 10, option: 'opRank', label: 'Offensive Power Rank' },
-  { value: {min: -20, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Cargo Ship Cargo', label: 'Cargo Ship Cargo' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Cargo Ship Hatch', label: 'Cargo Ship Hatch' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo', label: 'Rocket Cargo' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Hatch', label: 'Rocket Hatch' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 1', label: 'Rocket Cargo Level 1' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 2', label: 'Rocket Cargo Level 2' },
-  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 3', label: 'Rocket Cargo Level 3' },
-  { value: {min: 0, max: 10}, max: 10, option: 'HAB Start Level', label: 'HAB Start Level' },
-  { value: {min: 0, max: 10}, max: 10, option: 'HAB Climb Level', label: 'HAB Climb Level' },
+  { value: {min: -40, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
+  { value: {min: 0, max: 10}, max: 10, option: 'cargoship_cargo', label: 'Cargo Ship Cargo' },
+  { value: {min: 0, max: 10}, max: 10, option: 'cargoship_hatch', label: 'Cargo Ship Hatch' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo', label: 'Rocket Cargo' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_hatch', label: 'Rocket Hatch' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl1', label: 'Rocket Cargo Level 1' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl2', label: 'Rocket Cargo Level 2' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl3', label: 'Rocket Cargo Level 3' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_hatch_lvl1', label: 'Rocket Hatch Level 1' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_hatch_lvl2', label: 'Rocket Hatch Level 2' },
+  { value: {min: 0, max: 10}, max: 10, option: 'rocket_hatch_lvl3', label: 'Rocket Hatch Level 3' },
+  { value: {min: 0, max: 10}, max: 10, option: 'HAB_start_level', label: 'HAB Start Level' },
+  { value: {min: 0, max: 10}, max: 10, option: 'HAB_climb', label: 'HAB Climb Level' },
 ];
 
 class TeamList extends Component {
@@ -83,11 +86,11 @@ class TeamList extends Component {
         loading: false,
       });
       for(let i= 0; i < FILTER_OPTIONS.length; i++){
-        console.log("________________________")
-        console.log("Filter options max")
-        console.log(FILTER_OPTIONS[i]["max"])
-        console.log("data max")
-        console.log(data)
+        //console.log("________________________")
+        // console.log("Filter options max")
+        // console.log(FILTER_OPTIONS[i]["max"])
+        // console.log("data max")
+        // console.log(data.maxes)
         FILTER_OPTIONS[i]["max"] = data.maxes[FILTER_OPTIONS[i].option]
         FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
       }
@@ -131,31 +134,31 @@ class TeamList extends Component {
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.cargoship_cargo <= filters.find(option => option.option === 'Cargo Ship Cargo').value.max &&
-        team.cargoship_hatch <= filters.find(option => option.option === 'Cargo Ship Hatches').value.max &&
-        team.rocket_cargo <= filters.find(option => option.option === 'Rocket Cargo').value.max &&
-        team.rocket_hatch <= filters.find(option => option.option === 'Rocket Hatches').value.max &&
-        team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'Rocket Cargo Level 1').value.max &&
-        team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'Rocket Cargo Level 2').value.max &&
-        team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'Rocket Cargo Level 3').value.max &&
-        team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'Rocket Hatch Level 1').value.max &&
-        team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'Rocket Hatch Level 2').value.max &&
-        team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'Rocket Hatch Level 3').value.max &&
-        team.HAB_start_level <= filters.find(option => option.option === 'HAB Start Level').value.max &&
-        team.HAB_climb <= filters.find(option => option.option === 'HAB Climb').value.max &&
+        team.cargoship_cargo <= filters.find(option => option.option === 'cargoship_cargo').value.max &&
+        team.cargoship_hatch <= filters.find(option => option.option === 'cargoship_hatch').value.max &&
+        team.rocket_cargo <= filters.find(option => option.option === 'rocket_cargo').value.max &&
+        team.rocket_hatch <= filters.find(option => option.option === 'rocket_hatch').value.max &&
+        team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'rocket_cargo_lvl1').value.max &&
+        team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'rocket_cargo_lvl2').value.max &&
+        team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'rocket_cargo_lvl3').value.max &&
+        team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'rocket_hatch_lvl1').value.max &&
+        team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'rocket_hatch_lvl2').value.max &&
+        team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'rocket_hatch_lvl3').value.max &&
+        team.HAB_start_level <= filters.find(option => option.option === 'HAB_start_level').value.max &&
+        team.HAB_climb <= filters.find(option => option.option === 'HAB_climb').value.max &&
 
-        team.cargoship_cargo >= filters.find(option => option.option === 'Cargo Ship Cargo').value.min &&
-        team.cargoship_hatch >= filters.find(option => option.option === 'Cargo Ship Hatches').value.min &&
-        team.rocket_cargo >= filters.find(option => option.option === 'Rocket Cargo').value.min &&
-        team.rocket_hatch >= filters.find(option => option.option === 'Rocket Hatches').value.min &&
-        team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'Rocket Cargo Level 1').value.min &&
-        team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'Rocket Cargo Level 2').value.min &&
-        team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'Rocket Cargo Level 3').value.min &&
-        team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'Rocket Hatch Level 1').value.min &&
-        team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'Rocket Hatch Level 2').value.min &&
-        team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'Rocket Hatch Level 3').value.min &&
-        team.HAB_start_level >= filters.find(option => option.option === 'HAB Start Level').value.min &&
-        team.HAB_climb >= filters.find(option => option.option === 'HAB Climb').value.min 
+        team.cargoship_cargo >= filters.find(option => option.option === 'cargoship_cargo').value.min &&
+        team.cargoship_hatch >= filters.find(option => option.option === 'cargoship_hatch').value.min &&
+        team.rocket_cargo >= filters.find(option => option.option === 'rocket_cargo').value.min &&
+        team.rocket_hatch >= filters.find(option => option.option === 'rocket_hatch').value.min &&
+        team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'rocket_cargo_lvl1').value.min &&
+        team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'rocket_cargo_lvl2').value.min &&
+        team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'rocket_cargo_lvl3').value.min &&
+        team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'rocket_hatch_lvl1').value.min &&
+        team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'rocket_hatch_lvl2').value.min &&
+        team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'rocket_hatch_lvl3').value.min &&
+        team.HAB_start_level >= filters.find(option => option.option === 'HAB_start_level').value.min &&
+        team.HAB_climb >= filters.find(option => option.option === 'HAB_climb').value.min
 
     );
     this.setState({
@@ -171,31 +174,31 @@ class TeamList extends Component {
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.cargoship_cargo <= filters.find(option => option.option === 'Cargo Ship Cargo').value.max &&
-        team.cargoship_hatch <= filters.find(option => option.option === 'Cargo Ship Hatches').value.max &&
-        team.rocket_cargo <= filters.find(option => option.option === 'Rocket Cargo').value.max &&
-        team.rocket_hatch <= filters.find(option => option.option === 'Rocket Hatches').value.max &&
-        team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'Rocket Cargo Level 1').value.max &&
-        team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'Rocket Cargo Level 2').value.max &&
-        team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'Rocket Cargo Level 3').value.max &&
-        team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'Rocket Hatch Level 1').value.max &&
-        team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'Rocket Hatch Level 2').value.max &&
-        team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'Rocket Hatch Level 3').value.max &&
-        team.HAB_start_level <= filters.find(option => option.option === 'HAB Start Level').value.max &&
-        team.HAB_climb <= filters.find(option => option.option === 'HAB Climb').value.max &&
-        
-        team.cargoship_cargo >= filters.find(option => option.option === 'Cargo Ship Cargo').value.min &&
-        team.cargoship_hatch >= filters.find(option => option.option === 'Cargo Ship Hatches').value.min &&
-        team.rocket_cargo >= filters.find(option => option.option === 'Rocket Cargo').value.min &&
-        team.rocket_hatch >= filters.find(option => option.option === 'Rocket Hatches').value.min &&
-        team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'Rocket Cargo Level 1').value.min &&
-        team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'Rocket Cargo Level 2').value.min &&
-        team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'Rocket Cargo Level 3').value.min &&
-        team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'Rocket Hatch Level 1').value.min &&
-        team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'Rocket Hatch Level 2').value.min &&
-        team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'Rocket Hatch Level 3').value.min &&
-        team.HAB_start_level >= filters.find(option => option.option === 'HAB Start Level').value.min &&
-        team.HAB_climb >= filters.find(option => option.option === 'HAB Climb').value.min 
+      team.cargoship_cargo <= filters.find(option => option.option === 'cargoship_cargo').value.max &&
+      team.cargoship_hatch <= filters.find(option => option.option === 'cargoship_hatch').value.max &&
+      team.rocket_cargo <= filters.find(option => option.option === 'rocket_cargo').value.max &&
+      team.rocket_hatch <= filters.find(option => option.option === 'rocket_hatch').value.max &&
+      team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'rocket_cargo_lvl1').value.max &&
+      team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'rocket_cargo_lvl2').value.max &&
+      team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'rocket_cargo_lvl3').value.max &&
+      team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'rocket_hatch_lvl1').value.max &&
+      team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'rocket_hatch_lvl2').value.max &&
+      team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'rocket_hatch_lvl3').value.max &&
+      team.HAB_start_level <= filters.find(option => option.option === 'HAB_start_level').value.max &&
+      team.HAB_climb <= filters.find(option => option.option === 'HAB_climb').value.max &&
+
+      team.cargoship_cargo >= filters.find(option => option.option === 'cargoship_cargo').value.min &&
+      team.cargoship_hatch >= filters.find(option => option.option === 'cargoship_hatch').value.min &&
+      team.rocket_cargo >= filters.find(option => option.option === 'rocket_cargo').value.min &&
+      team.rocket_hatch >= filters.find(option => option.option === 'rocket_hatch').value.min &&
+      team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'rocket_cargo_lvl1').value.min &&
+      team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'rocket_cargo_lvl2').value.min &&
+      team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'rocket_cargo_lvl3').value.min &&
+      team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'rocket_hatch_lvl1').value.min &&
+      team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'rocket_hatch_lvl2').value.min &&
+      team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'rocket_hatch_lvl3').value.min &&
+      team.HAB_start_level >= filters.find(option => option.option === 'HAB_start_level').value.min &&
+      team.HAB_climb >= filters.find(option => option.option === 'HAB_climb').value.min
     );
     this.setState({
       page: 0,
@@ -223,37 +226,31 @@ class TeamList extends Component {
 
     const filteredArray = searchResults.filter(
       team =>
-        team.baRank <= updatedFilterOptions.find(option => option.option === 'baRank').value.max &&
-        team.opRank <= updatedFilterOptions.find(option => option.option === 'opRank').value.max &&
-        team.dpRank <= updatedFilterOptions.find(option => option.option === 'dpRank').value.max &&
-        team.cargoship_cargo <= updatedFilterOptions.find(option => option.option === 'Cargo Ship Cargo').value.max &&
-        team.cargoship_hatch <= updatedFilterOptions.find(option => option.option === 'Cargo Ship Hatches').value.max &&
-        team.rocket_cargo <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo').value.max &&
-        team.rocket_hatch <= updatedFilterOptions.find(option => option.option === 'Rocket Hatches').value.max &&
-        team.rocket_cargo_lvl1 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 1').value.max &&
-        team.rocket_cargo_lvl2 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 2').value.max &&
-        team.rocket_cargo_lvl3 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 3').value.max &&
-        team.rocket_hatch_lvl1 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 1').value.max &&
-        team.rocket_hatch_lvl2 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 2').value.max &&
-        team.rocket_hatch_lvl3 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 3').value.max &&
-        team.HAB_start_level <= updatedFilterOptions.find(option => option.option === 'HAB Start Level').value.max &&
-        team.HAB_climb <= updatedFilterOptions.find(option => option.option === 'HAB Climb').value.max &&
+        team.cargoship_cargo <= updatedFilterOptions.find(option => option.option === 'cargoship_cargo').value.max &&
+        team.cargoship_hatch <= updatedFilterOptions.find(option => option.option === 'cargoship_hatch').value.max &&
+        team.rocket_cargo <= updatedFilterOptions.find(option => option.option === 'rocket_cargo').value.max &&
+        team.rocket_hatch <= updatedFilterOptions.find(option => option.option === 'rocket_hatch').value.max &&
+        team.rocket_cargo_lvl1 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl1').value.max &&
+        team.rocket_cargo_lvl2 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl2').value.max &&
+        team.rocket_cargo_lvl3 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl3').value.max &&
+        team.rocket_hatch_lvl1 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl1').value.max &&
+        team.rocket_hatch_lvl2 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl2').value.max &&
+        team.rocket_hatch_lvl3 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl3').value.max &&
+        team.HAB_start_level <= updatedFilterOptions.find(option => option.option === 'HAB_start_level').value.max &&
+        team.HAB_climb <= updatedFilterOptions.find(option => option.option === 'HAB_climb').value.max &&
 
-        team.baRank >= updatedFilterOptions.find(option => option.option === 'baRank').value.min &&
-        team.opRank >= updatedFilterOptions.find(option => option.option === 'opRank').value.min &&
-        team.dpRank >= updatedFilterOptions.find(option => option.option === 'dpRank').value.min &&
-        team.cargoship_cargo >= updatedFilterOptions.find(option => option.option === 'Cargo Ship Cargo').value.min &&
-        team.cargoship_hatch >= updatedFilterOptions.find(option => option.option === 'Cargo Ship Hatches').value.min &&
-        team.rocket_cargo >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo').value.min &&
-        team.rocket_hatch >= updatedFilterOptions.find(option => option.option === 'Rocket Hatches').value.min &&
-        team.rocket_cargo_lvl1 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 1').value.min &&
-        team.rocket_cargo_lvl2 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 2').value.min &&
-        team.rocket_cargo_lvl3 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 3').value.min &&
-        team.rocket_hatch_lvl1 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 1').value.min &&
-        team.rocket_hatch_lvl2 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 2').value.min &&
-        team.rocket_hatch_lvl3 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 3').value.min &&
-        team.HAB_start_level >= updatedFilterOptions.find(option => option.option === 'HAB Start Level').value.min &&
-        team.HAB_climb >= updatedFilterOptions.find(option => option.option === 'HAB Climb').value.min
+        team.cargoship_cargo >= updatedFilterOptions.find(option => option.option === 'cargoship_cargo').value.min &&
+        team.cargoship_hatch >= updatedFilterOptions.find(option => option.option === 'cargoship_hatch').value.min &&
+        team.rocket_cargo >= updatedFilterOptions.find(option => option.option === 'rocket_cargo').value.min &&
+        team.rocket_hatch >= updatedFilterOptions.find(option => option.option === 'rocket_hatch').value.min &&
+        team.rocket_cargo_lvl1 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl1').value.min &&
+        team.rocket_cargo_lvl2 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl2').value.min &&
+        team.rocket_cargo_lvl3 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl3').value.min &&
+        team.rocket_hatch_lvl1 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl1').value.min &&
+        team.rocket_hatch_lvl2 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl2').value.min &&
+        team.rocket_hatch_lvl3 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl3').value.min &&
+        team.HAB_start_level >= updatedFilterOptions.find(option => option.option === 'HAB_start_level').value.min &&
+        team.HAB_climb >= updatedFilterOptions.find(option => option.option === 'HAB_climb').value.min
         
     );
 
@@ -275,37 +272,43 @@ class TeamList extends Component {
   handleSortChange = selected => {
     const teams = this.state.teams.sort((a, b) => b[selected.value] - a[selected.value]);
     const searchResults = this.findMatches(this.state.search, teams);
-
+    console.log("teams")
+    console.log(teams)
+    console.log("seachResults")
+    console.log(searchResults)
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
-        team.cargoship_cargo <= filters.find(option => option.option === 'Cargo Ship Cargo').value.max &&
-        team.cargoship_hatch <= filters.find(option => option.option === 'Cargo Ship Hatches').value.max &&
-        team.rocket_cargo <= filters.find(option => option.option === 'Rocket Cargo').value.max &&
-        team.rocket_hatch <= filters.find(option => option.option === 'Rocket Hatches').value.max &&
-        team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'Rocket Cargo Level 1').value.max &&
-        team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'Rocket Cargo Level 2').value.max &&
-        team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'Rocket Cargo Level 3').value.max &&
-        team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'Rocket Hatch Level 1').value.max &&
-        team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'Rocket Hatch Level 2').value.max &&
-        team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'Rocket Hatch Level 3').value.max &&
-        team.HAB_start_level <= filters.find(option => option.option === 'HAB Start Level').value.max &&
-        team.HAB_climb <= filters.find(option => option.option === 'HAB Climb').value.max &&
-        
-        team.cargoship_cargo >= filters.find(option => option.option === 'Cargo Ship Cargo').value.min &&
-        team.cargoship_hatch >= filters.find(option => option.option === 'Cargo Ship Hatches').value.min &&
-        team.rocket_cargo >= filters.find(option => option.option === 'Rocket Cargo').value.min &&
-        team.rocket_hatch >= filters.find(option => option.option === 'Rocket Hatches').value.min &&
-        team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'Rocket Cargo Level 1').value.min &&
-        team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'Rocket Cargo Level 2').value.min &&
-        team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'Rocket Cargo Level 3').value.min &&
-        team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'Rocket Hatch Level 1').value.min &&
-        team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'Rocket Hatch Level 2').value.min &&
-        team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'Rocket Hatch Level 3').value.min &&
-        team.HAB_start_level >= filters.find(option => option.option === 'HAB Start Level').value.min &&
-        team.HAB_climb >= filters.find(option => option.option === 'HAB Climb').value.min 
+      team.cargoship_cargo <= filters.find(option => option.option === 'cargoship_cargo').value.max &&
+      team.cargoship_hatch <= filters.find(option => option.option === 'cargoship_hatch').value.max &&
+      team.rocket_cargo <= filters.find(option => option.option === 'rocket_cargo').value.max &&
+      team.rocket_hatch <= filters.find(option => option.option === 'rocket_hatch').value.max &&
+      team.rocket_cargo_lvl1 <= filters.find(option => option.option === 'rocket_cargo_lvl1').value.max &&
+      team.rocket_cargo_lvl2 <= filters.find(option => option.option === 'rocket_cargo_lvl2').value.max &&
+      team.rocket_cargo_lvl3 <= filters.find(option => option.option === 'rocket_cargo_lvl3').value.max &&
+      team.rocket_hatch_lvl1 <= filters.find(option => option.option === 'rocket_hatch_lvl1').value.max &&
+      team.rocket_hatch_lvl2 <= filters.find(option => option.option === 'rocket_hatch_lvl2').value.max &&
+      team.rocket_hatch_lvl3 <= filters.find(option => option.option === 'rocket_hatch_lvl3').value.max &&
+      team.HAB_start_level <= filters.find(option => option.option === 'HAB_start_level').value.max &&
+      team.HAB_climb <= filters.find(option => option.option === 'HAB_climb').value.max &&
+
+      team.cargoship_cargo >= filters.find(option => option.option === 'cargoship_cargo').value.min &&
+      team.cargoship_hatch >= filters.find(option => option.option === 'cargoship_hatch').value.min &&
+      team.rocket_cargo >= filters.find(option => option.option === 'rocket_cargo').value.min &&
+      team.rocket_hatch >= filters.find(option => option.option === 'rocket_hatch').value.min &&
+      team.rocket_cargo_lvl1 >= filters.find(option => option.option === 'rocket_cargo_lvl1').value.min &&
+      team.rocket_cargo_lvl2 >= filters.find(option => option.option === 'rocket_cargo_lvl2').value.min &&
+      team.rocket_cargo_lvl3 >= filters.find(option => option.option === 'rocket_cargo_lvl3').value.min &&
+      team.rocket_hatch_lvl1 >= filters.find(option => option.option === 'rocket_hatch_lvl1').value.min &&
+      team.rocket_hatch_lvl2 >= filters.find(option => option.option === 'rocket_hatch_lvl2').value.min &&
+      team.rocket_hatch_lvl3 >= filters.find(option => option.option === 'rocket_hatch_lvl3').value.min &&
+      team.HAB_start_level >= filters.find(option => option.option === 'HAB_start_level').value.min &&
+      team.HAB_climb >= filters.find(option => option.option === 'HAB_climb').value.min
         
     );
+    console.log("Filtered Array")
+    console.log(filteredArray)
+    console.log("_____________________________________________________")
 
     this.setState({
       teams,
@@ -331,7 +334,7 @@ class TeamList extends Component {
   };
 
   childUpdated = (team) => {
-    console.log(team)
+    //console.log(team)
     this.setState({
       drillDownSpecificTeam: team
     });
@@ -339,7 +342,7 @@ class TeamList extends Component {
 
   clearFilters = () => {
     const searchValue = this.state.search;
-    console.log(searchValue)
+    //console.log(searchValue)
     const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredTeams);
     // Now lets filter out those results
@@ -349,37 +352,31 @@ class TeamList extends Component {
     });
     const filteredArray = searchResults.filter(
       team =>
-      team.baRank <= updatedFilterOptions.find(option => option.option === 'baRank').value.max &&
-      team.opRank <= updatedFilterOptions.find(option => option.option === 'opRank').value.max &&
-      team.dpRank <= updatedFilterOptions.find(option => option.option === 'dpRank').value.max &&
-      team.cargoship_cargo <= updatedFilterOptions.find(option => option.option === 'Cargo Ship Cargo').value.max &&
-      team.cargoship_hatch <= updatedFilterOptions.find(option => option.option === 'Cargo Ship Hatches').value.max &&
-      team.rocket_cargo <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo').value.max &&
-      team.rocket_hatch <= updatedFilterOptions.find(option => option.option === 'Rocket Hatches').value.max &&
-      team.rocket_cargo_lvl1 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 1').value.max &&
-      team.rocket_cargo_lvl2 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 2').value.max &&
-      team.rocket_cargo_lvl3 <= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 3').value.max &&
-      team.rocket_hatch_lvl1 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 1').value.max &&
-      team.rocket_hatch_lvl2 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 2').value.max &&
-      team.rocket_hatch_lvl3 <= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 3').value.max &&
-      team.HAB_start_level <= updatedFilterOptions.find(option => option.option === 'HAB Start Level').value.max &&
-      team.HAB_climb <= updatedFilterOptions.find(option => option.option === 'HAB Climb').value.max &&
+      team.cargoship_cargo <= updatedFilterOptions.find(option => option.option === 'cargoship_cargo').value.max &&
+      team.cargoship_hatch <= updatedFilterOptions.find(option => option.option === 'cargoship_hatch').value.max &&
+      team.rocket_cargo <= updatedFilterOptions.find(option => option.option === 'rocket_cargo').value.max &&
+      team.rocket_hatch <= updatedFilterOptions.find(option => option.option === 'rocket_hatch').value.max &&
+      team.rocket_cargo_lvl1 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl1').value.max &&
+      team.rocket_cargo_lvl2 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl2').value.max &&
+      team.rocket_cargo_lvl3 <= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl3').value.max &&
+      team.rocket_hatch_lvl1 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl1').value.max &&
+      team.rocket_hatch_lvl2 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl2').value.max &&
+      team.rocket_hatch_lvl3 <= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl3').value.max &&
+      team.HAB_start_level <= updatedFilterOptions.find(option => option.option === 'HAB_start_level').value.max &&
+      team.HAB_climb <= updatedFilterOptions.find(option => option.option === 'HAB_climb').value.max &&
 
-      team.baRank >= updatedFilterOptions.find(option => option.option === 'baRank').value.min &&
-      team.opRank >= updatedFilterOptions.find(option => option.option === 'opRank').value.min &&
-      team.dpRank >= updatedFilterOptions.find(option => option.option === 'dpRank').value.min &&
-      team.cargoship_cargo >= updatedFilterOptions.find(option => option.option === 'Cargo Ship Cargo').value.min &&
-      team.cargoship_hatch >= updatedFilterOptions.find(option => option.option === 'Cargo Ship Hatches').value.min &&
-      team.rocket_cargo >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo').value.min &&
-      team.rocket_hatch >= updatedFilterOptions.find(option => option.option === 'Rocket Hatches').value.min &&
-      team.rocket_cargo_lvl1 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 1').value.min &&
-      team.rocket_cargo_lvl2 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 2').value.min &&
-      team.rocket_cargo_lvl3 >= updatedFilterOptions.find(option => option.option === 'Rocket Cargo Level 3').value.min &&
-      team.rocket_hatch_lvl1 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 1').value.min &&
-      team.rocket_hatch_lvl2 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 2').value.min &&
-      team.rocket_hatch_lvl3 >= updatedFilterOptions.find(option => option.option === 'Rocket Hatch Level 3').value.min &&
-      team.HAB_start_level >= updatedFilterOptions.find(option => option.option === 'HAB Start Level').value.min &&
-      team.HAB_climb >= updatedFilterOptions.find(option => option.option === 'HAB Climb').value.min
+      team.cargoship_cargo >= updatedFilterOptions.find(option => option.option === 'cargoship_cargo').value.min &&
+      team.cargoship_hatch >= updatedFilterOptions.find(option => option.option === 'cargoship_hatch').value.min &&
+      team.rocket_cargo >= updatedFilterOptions.find(option => option.option === 'rocket_cargo').value.min &&
+      team.rocket_hatch >= updatedFilterOptions.find(option => option.option === 'rocket_hatch').value.min &&
+      team.rocket_cargo_lvl1 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl1').value.min &&
+      team.rocket_cargo_lvl2 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl2').value.min &&
+      team.rocket_cargo_lvl3 >= updatedFilterOptions.find(option => option.option === 'rocket_cargo_lvl3').value.min &&
+      team.rocket_hatch_lvl1 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl1').value.min &&
+      team.rocket_hatch_lvl2 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl2').value.min &&
+      team.rocket_hatch_lvl3 >= updatedFilterOptions.find(option => option.option === 'rocket_hatch_lvl3').value.min &&
+      team.HAB_start_level >= updatedFilterOptions.find(option => option.option === 'HAB_start_level').value.min &&
+      team.HAB_climb >= updatedFilterOptions.find(option => option.option === 'HAB_climb').value.min
     );
 
     this.setState({

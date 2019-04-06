@@ -258,7 +258,8 @@ export function load(callback) {
             maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, 
             "cargoship_cargo": 10, "cargoship_hatch": 10, "rocket_cargo":10, "rocket_hatch":10,
             "rocket_cargo_lvl1": 10, "rocket_cargo_lvl2":10, "rocket_cargo_lvl3":10, 
-            "rocket_hatch_level1":10, "rocket_hatch_level2":10, "rocket_hatch_level3":10,
+            "rocket_hatch_lvl1":10, "rocket_hatch_lvl2":10, "rocket_hatch_lvl3":10,
+            "HAB_start_level": 3, "HAB_climb": 3,
           }
           });
         },

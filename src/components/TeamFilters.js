@@ -18,6 +18,7 @@ class TeamFilters extends Component {
       <div className={`TeamFilters ${this.props.open ? 'open' : `closed`}`}>
         <div className="filter-card">
           <h3>Filters</h3>
+
           {this.props.filterOptions.map(filterOption => (
             <div className="filter-item" key={filterOption.label}>
               <p>{filterOption.label}</p>
@@ -25,7 +26,7 @@ class TeamFilters extends Component {
                 allowSameValues
                 draggableTrack
                 maxValue={filterOption.max}
-                minValue={0}
+                minValue={filterOption.option == "dpRank" ? -40 : 0}
                 step={1}
                 value={filterOption.value}
                 onChange={value => this.props.filter(filterOption.option, value)}
