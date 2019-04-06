@@ -14,7 +14,7 @@ import _ from "lodash";
 
 import NotFound from './not-found.gif';
 
-const PAGE_LIMIT = 20;
+const PAGE_LIMIT = 50;
 
 const SORT_OPTIONS = [
   { value: 'baRankFilter', label: 'Team Rank' },
@@ -38,15 +38,15 @@ const FILTER_OPTIONS = [
   { value: {min: 0, max: 10}, max: 10, option: 'baRank', label: 'Team Rank' },
   { value: {min: 0, max: 10}, max: 10, option: 'opRank', label: 'Offensive Power Rank' },
   { value: {min: -20, max: 10}, max: 10, option: 'dpRank', label: 'Defensive Power Rank' },
-  { value: {min: 0, max: 10}, max: 10, option: 'cargoship_cargo', label: 'Cargo Ship Cargo' },
-  { value: {min: 0, max: 10}, max: 10, option: 'cargoship_hatch', label: 'Cargo Ship Hatch' },
-  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo', label: 'Rocket Cargo' },
-  { value: {min: 0, max: 10}, max: 10, option: 'rocket_hatch', label: 'Rocket Hatch' },
-  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl1', label: 'Rocket Cargo Level 1' },
-  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl2', label: 'Rocket Cargo Level 2' },
-  { value: {min: 0, max: 10}, max: 10, option: 'rocket_cargo_lvl3', label: 'Rocket Cargo Level 3' },
-  { value: {min: 0, max: 10}, max: 10, option: 'HAB_start_level', label: 'HAB Start Level' },
-  { value: {min: 0, max: 10}, max: 10, option: 'HAB_climb', label: 'HAB Climb Level' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Cargo Ship Cargo', label: 'Cargo Ship Cargo' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Cargo Ship Hatch', label: 'Cargo Ship Hatch' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo', label: 'Rocket Cargo' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Hatch', label: 'Rocket Hatch' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 1', label: 'Rocket Cargo Level 1' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 2', label: 'Rocket Cargo Level 2' },
+  { value: {min: 0, max: 10}, max: 10, option: 'Rocket Cargo Level 3', label: 'Rocket Cargo Level 3' },
+  { value: {min: 0, max: 10}, max: 10, option: 'HAB Start Level', label: 'HAB Start Level' },
+  { value: {min: 0, max: 10}, max: 10, option: 'HAB Climb Level', label: 'HAB Climb Level' },
 ];
 
 class TeamList extends Component {
@@ -82,7 +82,12 @@ class TeamList extends Component {
         pageCount: data.teams.length / PAGE_LIMIT,
         loading: false,
       });
-      for(let i= 0; i <= FILTER_OPTIONS.length; i++){
+      for(let i= 0; i < FILTER_OPTIONS.length; i++){
+        console.log("________________________")
+        console.log("Filter options max")
+        console.log(FILTER_OPTIONS[i]["max"])
+        console.log("data max")
+        console.log(data)
         FILTER_OPTIONS[i]["max"] = data.maxes[FILTER_OPTIONS[i].option]
         FILTER_OPTIONS[i]["value"]["max"] = data.maxes[FILTER_OPTIONS[i].option]
       }
@@ -334,6 +339,7 @@ class TeamList extends Component {
 
   clearFilters = () => {
     const searchValue = this.state.search;
+    console.log(searchValue)
     const filteredTeams = this.state.teams.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredTeams);
     // Now lets filter out those results

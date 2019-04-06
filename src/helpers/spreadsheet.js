@@ -85,27 +85,29 @@ export function load(callback) {
             match_num: row[2],
             starting_HAB_Level: row[3],
             line_pass: row[4],
-            auto_cargoship_hatch: row[5],
-            auto_cargoship_cargo: row[6],
-            auto_rocket_cargo_lvl1: row[7],
-            auto_rocket_cargo_lvl2: row[8],
-            auto_rocket_cargo_lvl3: row[9],
-            auto_rocket_hatch_lvl1: row[10],
-            auto_rocket_hatch_lvl2: row[11],
-            auto_rocket_hatch_lvl3: row[12],
-            teleop_cargoship_cargo: row[13],
-            teleop_cargoship_hatch: row[14],
-            teleop_rocket_cargo_lvl1: row[15],
-            teleop_rocket_cargo_lvl2: row[16],
-            teleop_rocket_cargo_lvl3: row[17],
-            teleop_rocket_hatch_lvl1: row[18],
-            teleop_rocket_hatch_lvl2: row[19],
-            teleop_rocket_hatch_lvl3: row[20],
+            auto_cargoship_hatch: row[5] == "" ? 0 : parseInt(row[5]),
+            auto_cargoship_cargo: row[6] == "" ? 0 : parseInt(row[6]),
+            auto_rocket_cargo_lvl1: row[7] == "" ? 0 : parseInt(row[7]),
+            auto_rocket_cargo_lvl2: row[8] == "" ? 0 : parseInt(row[8]),
+            auto_rocket_cargo_lvl3: row[9] == "" ? 0 : parseInt(row[9]),
+            auto_rocket_hatch_lvl1: row[10] == "" ? 0 : parseInt(row[10]),
+            auto_rocket_hatch_lvl2: row[11] == "" ? 0 : parseInt(row[11]),
+            auto_rocket_hatch_lvl3: row[12] == "" ? 0 : parseInt(row[12]),
+            teleop_cargoship_cargo: row[13] == "" ? 0 : parseInt(row[13]),
+            teleop_cargoship_hatch: row[14] == "" ? 0 : parseInt(row[14]),
+            teleop_rocket_cargo_lvl1: row[15] == "" ? 0 : parseInt(row[15]),
+            teleop_rocket_cargo_lvl2: row[16] == "" ? 0 : parseInt(row[16]),
+            teleop_rocket_cargo_lvl3: row[17] == "" ? 0 : parseInt(row[17]),
+            teleop_rocket_hatch_lvl1: row[18] == "" ? 0 : parseInt(row[18]),
+            teleop_rocket_hatch_lvl2: row[19] == "" ? 0 : parseInt(row[19]),
+            teleop_rocket_hatch_lvl3: row[20] == "" ? 0 : parseInt(row[20]),
             HAB_climb: row[21],
             comments: row[22],
             immobilized: row[23],
             scout_name: row[24],
           }))
+          //const keys = Object.keys(records)
+          
 
           var cargoship_cargo_sums = {}, cargoship_hatch_sums = {}, rocket_cargo_sums = {}, rocket_hatch_sums = {}, 
           rocket_cargo_lvl1_sums = {}, rocket_cargo_lvl2_sums = {}, rocket_cargo_lvl3_sums = {}, 
@@ -114,8 +116,9 @@ export function load(callback) {
 
           for (var i = 1; i < records.length; i++) {
               name = records[i].team_num;
+              //console.log(records)
               if (!(name in cargoship_cargo_sums)) {
-
+                //console.log(records[i].auto_cargoship_hatch)
                 cargoship_cargo_sums[name] = 0;
                 cargoship_hatch_sums[name] = 0;
 
@@ -140,6 +143,7 @@ export function load(callback) {
               }
               cargoship_cargo_sums[name] += (records[i].auto_cargoship_cargo + records[i].teleop_cargoship_cargo);
               cargoship_hatch_sums[name] += (records[i].auto_cargoship_hatch + records[i].teleop_cargoship_hatch);
+              //console.log(cargoship_cargo_sums)
 
               rocket_cargo_lvl1_sums[name] += (records[i].auto_rocket_cargo_lvl1 + records[i].teleop_rocket_cargo_lvl1);
               rocket_cargo_lvl2_sums[name] += (records[i].auto_rocket_cargo_lvl2 + records[i].teleop_rocket_cargo_lvl2);
@@ -189,7 +193,7 @@ export function load(callback) {
                 immobilized_sum[name] += 1
               }
               if(records[i].immobilized === "yes"){
-                immobilized_sum[name] += 1
+                immobilized_sum[name] += 0
               }
 
               counts[name]++;
@@ -197,7 +201,7 @@ export function load(callback) {
 
           for(name in cargoship_cargo_sums) {
               results.push({ team_num: name, 
-                cargoship_cargo: cargoship_cargo_sums[name] / counts[name],
+                cargoship_cargo: cargoship_cargo_sums[name] / 3,
                 cargoship_hatch: cargoship_hatch_sums[name] / counts[name],
 
                 rocket_cargo: rocket_cargo_sums[name] / counts[name],
@@ -218,7 +222,7 @@ export function load(callback) {
                 immobilized: immobilized_sum[name] / counts[name]
               });
             }
-
+            //console.log(records)
           let teams =
             results.map(team => {
               return ({
@@ -248,7 +252,7 @@ export function load(callback) {
             })}) || [];
             // var scaleMax = Math.round(Math.max(...Object.values(teams.scale)))
             // console.log(scaleMax)
-            //console.log(teams)
+            console.log(results)
           callback({
             teams,
             maxes: {"opRank": oprMax, "dpRank":dprMax, "baRank": rankMax, 

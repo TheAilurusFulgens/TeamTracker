@@ -4,10 +4,24 @@ import './BestOfEach.css';
 
 class BestOfEach extends Component {
   findBest = key => {
-    console.log(process.env.HOME)
+    console.log("------------------------------------------------")
+    //console.log(process.env.HOME)
     const keys = this.props.selectedTeams.map(teamObject => teamObject[key]);
     const maxValue = Math.max(...keys);
-    const team = this.props.selectedTeams.find(teamObject => teamObject[key] === maxValue);
+    console.log("Values")
+    console.log(keys)
+    console.log("key")
+    console.log(key)
+    console.log("Selected Teams")
+    console.log(this.props.selectedTeams)
+    console.log("Max value")
+    console.log(maxValue)
+    const team = this.props.selectedTeams.find(teamObject => {
+      console.log("IN FIND: " + teamObject + " Key: " +  teamObject[key] + " Max Value: " + maxValue)
+      console.log(teamObject[key] === maxValue)
+      return teamObject[key] === maxValue});
+
+      console.log(team)
     return team.name;
   };
   render() {
@@ -58,10 +72,10 @@ class BestOfEach extends Component {
             Rocket Hatches Level 1: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl1')}</span>
           </p>
           <p>
-            Rocket Hatches Level 2: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl 2')}</span>
+            Rocket Hatches Level 2: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl2')}</span>
           </p>
           <p>
-            Rocket Hatches Level 3: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl 3')}</span>
+            Rocket Hatches Level 3: <span style={{ fontWeight: 600 }}>{this.findBest('rocket_hatch_lvl3')}</span>
           </p>
           <p>
             HAB Climb Level: <span style={{ fontWeight: 600 }}>{this.findBest('HAB_climb')}</span>

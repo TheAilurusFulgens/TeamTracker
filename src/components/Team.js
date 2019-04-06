@@ -21,7 +21,6 @@ const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) 
         )}
       </h3>
     </div>
-    
     <div className={sortOption === 'baRankFilter' ? 'active' : 'weekend'}>
       {sortOption === 'baRankFilter' ? null : 'Blue Alliance Rank: '} <span className="number">{team.baRank}</span>
     </div>
