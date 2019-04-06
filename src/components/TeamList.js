@@ -272,10 +272,10 @@ class TeamList extends Component {
   handleSortChange = selected => {
     const teams = this.state.teams.sort((a, b) => b[selected.value] - a[selected.value]);
     const searchResults = this.findMatches(this.state.search, teams);
-    console.log("teams")
-    console.log(teams)
-    console.log("seachResults")
-    console.log(searchResults)
+    //console.log("teams")
+    //console.log(teams)
+    //console.log("seachResults")
+    //console.log(searchResults)
     const filters = this.state.filterOptions;
     const filteredArray = searchResults.filter(
       team =>
@@ -306,9 +306,9 @@ class TeamList extends Component {
       team.HAB_climb >= filters.find(option => option.option === 'HAB_climb').value.min
         
     );
-    console.log("Filtered Array")
-    console.log(filteredArray)
-    console.log("_____________________________________________________")
+    //console.log("Filtered Array")
+    //console.log(filteredArray)
+    //console.log("_____________________________________________________")
 
     this.setState({
       teams,

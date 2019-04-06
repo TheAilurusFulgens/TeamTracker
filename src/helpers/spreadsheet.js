@@ -156,45 +156,45 @@ export function load(callback) {
               rocket_cargo_sums[name] = rocket_cargo_lvl1_sums[name] + rocket_cargo_lvl2_sums[name] + rocket_cargo_lvl3_sums[name];
               rocket_hatch_sums[name] = rocket_hatch_lvl1_sums[name] + rocket_hatch_lvl2_sums[name] + rocket_hatch_lvl3_sums[name];
 
-              if(records[i].starting_HAB_Level ==="level 1"){
-                HAB_start_level_sum[name] += 1
-              }
-              if(records[i].climbing ==="level 2"){
-                HAB_start_level_sum[name] += 2
-              }
+              records[i].starting_HAB_Level == "level 1" ?  HAB_start_level_sum[name] += 1 :  HAB_start_level_sum[name] += 2
 
-              if(records[i].HAB_climb === "level 1"){
-                HAB_climb_sum[name] += 1
-              }
-              if(records[i].HAB_climb === "level 2"){
-                HAB_climb_sum[name] += 2
-              }
-              if(records[i].HAB_climb === "level 3"){
-                HAB_climb_sum[name] += 3
-              }
-              if(records[i].HAB_climb === "helped other robot to level 2"){
-                HAB_climb_sum[name] += 2
-              }
-              if(records[i].HAB_climb === "helped other robot to level 3"){
-                HAB_climb_sum[name] += 3
-              }
-              if(records[i].HAB_climb === "did not climb"){
-                HAB_climb_sum[name] += 0
-              }
+              records[i].HAB_climb == "level 1" ? HAB_climb_sum[name] += 1 : records[i].HAB_climb == "level 2" ? HAB_climb_sum[name] += 2 : records[i].HAB_climb == "level 3" ? HAB_climb_sum[name] += 3 : HAB_climb_sum[name]
+              console.log(HAB_start_level_sum)
+              // if(records[i].HAB_climb === "level 1"){
+              //   HAB_climb_sum[name] += 1
+              // }
+              // else if(records[i].HAB_climb === "level 2"){
+              //   HAB_climb_sum[name] += 2
+              // }
+              // if(records[i].HAB_climb === "level 3"){
+              //   HAB_climb_sum[name] += 3
+              // }
+              // else if(records[i].HAB_climb === "helped other robot to level 2"){
+              //   HAB_climb_sum[name] += 2
+              // }
+              // if(records[i].HAB_climb === "helped other robot to level 3"){
+              //   HAB_climb_sum[name] += 3
+              // }
+              // else if(records[i].HAB_climb === "did not climb"){
+              //   HAB_climb_sum[name] += 0
+              // }
+              records[i].line_pass == "yes" ?  line_pass_sum[name] += 1 :   line_pass_sum[name] += 0
 
-              if(records[i].line_pass === "yes"){
-                line_pass_sum[name] += 1
-              }
-              if(records[i].line_pass === "no"){
-                line_pass_sum[name] += 0
-              }
+              // if(records[i].line_pass === "yes"){
+              //   line_pass_sum[name] += 1
+              // }
+              // else if(records[i].line_pass === "no"){
+              //   line_pass_sum[name] += 0
+              // }
 
-              if(records[i].immobilized === "no"){
-                immobilized_sum[name] += 1
-              }
-              if(records[i].immobilized === "yes"){
-                immobilized_sum[name] += 0
-              }
+              records[i].immobilized == "no" ?  immobilized_sum[name] += 1 :   immobilized_sum[name] += 0
+
+              // if(records[i].immobilized === "no"){
+              //   immobilized_sum[name] += 1
+              // }
+              // else if(records[i].immobilized === "yes"){
+              //   immobilized_sum[name] += 0
+              // }
 
               counts[name]++;
           }
