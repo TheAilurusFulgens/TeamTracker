@@ -45,9 +45,6 @@ class BestOfEach extends Component {
             HAB Start Level: <span style={{ fontWeight: 600 }}>{this.findBest('HAB_start_level')}</span>
           </p>
           <p>
-            Line Pass: <span style={{ fontWeight: 600 }}>{this.findBest('line_pass')}</span>
-          </p>
-          <p>
             Cargo Ship Cargo: <span style={{ fontWeight: 600 }}>{this.findBest('cargoship_cargo')}</span>
           </p>
           <p>

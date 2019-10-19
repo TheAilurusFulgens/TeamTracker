@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
 import { Bar } from 'react-chartjs-2';
 import './Team.css';
+import ball from './Ball.png';
 //import { set, get } from "./localStorage";
 
 const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) => (
@@ -30,7 +31,16 @@ const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) 
     <div className={sortOption === 'dpRankFilter' ? 'active' : 'score'}>
       {sortOption === 'dpRankFilter' ? null : 'Defensive Power Rank: '} <span className="number">{team.dpRank}</span>
     </div>
-    <div style={{ marginTop: 20 }}>
+    {/* <div className={sortOption === 'HAB_climb' ? 'active' : 'score'}>
+      {sortOption === 'HAB_climb' ? null : 'Atleast Lvl 1 Climb: '} <span className="number">100%</span>
+    </div>
+    <div className={sortOption === 'HAB_climb' ? 'active' : 'score'}>
+      {sortOption === 'HAB_climb' ? null : 'Atleast Lvl 2 Climb: '} <span className="number">100%</span>
+    </div>
+    <div className={sortOption === 'HAB_climb' ? 'active' : 'score'}>
+      {sortOption === 'HAB_climb' ? null : 'Atleast Lvl 3 Climb: '} <span className="number">100%</span>
+    </div> */}
+    <div style={{ marginTop: 20}}>
       <Bar
         options={{
           legend: {
@@ -57,18 +67,11 @@ const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) 
         }}
         data={{
           labels: [
-            'HAB Start Level',
-            'Cargo Ship Cargo',
-            'Cargo Ship Hatches',
+            'Cargo Ship Ball',
+            'Cargo Ship Hatch',
             'Rocket Cargo',
             'Rocket Hatches',
-            'Cargo Lvl 1',
-            'Cargo Lvl 2',
-            'Cargo Lvl 3',
-            'Hatch Lvl 1',
-            'Hatch Lvl 2',
-            'Hatch Lvl 3',
-            'HAB Climb Level',
+            'HAB Climb'
           ],
           datasets: [
             {
@@ -76,24 +79,19 @@ const Team = ({ team, sortOption, search, selected, selectTeam, childUpdated }) 
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
               data: [
-                team.HAB_start_level,
                 team.cargoship_cargo,
                 team.cargoship_hatch,
                 team.rocket_cargo,
                 team.rocket_hatch,
-                team.rocket_cargo_lvl1,
-                team.rocket_cargo_lvl2,
-                team.rocket_cargo_lvl3,
-                team.rocket_hatch_lvl1,
-                team.rocket_hatch_lvl2,
-                team.rocket_hatch_lvl3,
-                team.HAB_climb,
+                team.HAB_climb
               ],
             },
           ],
         }}
       />
     </div>
+
+
     <div className="compare">
       <button onClick={e => selectTeam(e, team)} className={selected ? 'selected' : null}>
         {selected ? 'Selected' : 'Compare'}

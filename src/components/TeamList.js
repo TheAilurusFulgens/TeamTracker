@@ -103,7 +103,7 @@ class TeamList extends Component {
     //Initialize the JavaScript client library.
     window.gapi.client
       .init({
-        apiKey: process.env.REACT_APP_APIKEY,
+        apiKey: 'AIzaSyC1bxZaTOj6Nu8otaC-teW1Tb5anLaAG2E',
         // Your API key will be automatically added to the Discovery Document URLs.
         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest'],
       })
@@ -493,6 +493,8 @@ class TeamList extends Component {
         ))}
       </ul>
       {this.state.selectedTeams.length ? <BestOfEach selectedTeams={this.state.selectedTeams} /> : null}
+      {console.log("selectedTeam:")}
+      {console.log(this.state.selectedTeams)}
     </div>
   );
 
@@ -504,23 +506,19 @@ class TeamList extends Component {
       <p><h3>Blue Alliance Rank: {this.state.drillDownSpecificTeam.baRank}</h3></p>
       <p><h3>Offensive Power Rank: {this.state.drillDownSpecificTeam.opRank}</h3></p>
       <p><h3>Defensive Power Rank: {this.state.drillDownSpecificTeam.dpRank}</h3></p>
+      <p><h3>Level 1 Climb: {this.state.drillDownSpecificTeam.HAB_climb_level1.toFixed(2)}%</h3></p>
+      <p><h3>Level 2 Climb: {this.state.drillDownSpecificTeam.HAB_climb_level2.toFixed(2)}%</h3></p>
+      <p><h3>Level 3 Climb: {this.state.drillDownSpecificTeam.HAB_climb_level3.toFixed(2)}%</h3></p>
       <ReactTable
           data={this.state.drillDownSpecificTeam.matches}
           columns={[
             {
               columns: [
                 {
-                  Header: "Match Number",
+                  Header: "#",
                   headerClassName: 'headBold',
                   accessor: "match_num",
-                  maxWidth: 150
-                },
-                {
-                  Header: "HAB Start",
-                  headerClassName: 'headBold',
-                  id: "lastName",
-                  accessor: "HAB_start_level",
-                  className: "wordwrap"
+                  maxWidth: 50
                 }
               ]
             },
@@ -528,7 +526,7 @@ class TeamList extends Component {
               columns: [
                 
                 {
-                  Header: "Cargo Ship Cargo",
+                  Header: "CS Cargo",
                   headerClassName: 'headBold',
                   accessor: "cargoship_cargo",
                   maxWidth: 125,
@@ -536,6 +534,90 @@ class TeamList extends Component {
                     <span>
                       <strong>Average:</strong>{" "}
                       {Math.round(this.state.drillDownSpecificTeam.cargoship_cargo*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "CS Hatches",
+                  headerClassName: 'headBold',
+                  accessor: "cargoship_hatch",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.cargoship_hatch*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 1 Cargo",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_cargo_lvl1",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_cargo_lvl1*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 2 Cargo",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_cargo_lvl2",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_cargo_lvl2*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 3 Cargo",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_cargo_lvl3",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_cargo_lvl3*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 1 Hatch",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_hatch_lvl1",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_hatch_lvl1*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 2 Hatch",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_hatch_lvl2",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_hatch_lvl2*100)/100}
+                    </span>
+                  )
+                },
+                {
+                  Header: "Lvl 3 Cargo",
+                  headerClassName: 'headBold',
+                  accessor: "rocket_hatch_lvl3",
+                  maxWidth: 125,
+                  Footer: (
+                    <span>
+                      <strong>Average:</strong>{" "}
+                      {Math.round(this.state.drillDownSpecificTeam.rocket_hatch_lvl3*100)/100}
                     </span>
                   )
                 },
@@ -614,6 +696,7 @@ class TeamList extends Component {
     if (this.state.error) {
       return <div>{this.state.error}</div>;
     }
+    console.log(this.state)
     return (
       <div>
         {this.state.drillDownSpecificTeam == null ? (!this.state.comparing ? this.renderFullList() : this.renderCompareList()) : this.renderMatchTable()}
