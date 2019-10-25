@@ -19,7 +19,7 @@ class App extends Component {
         <footer className="App-footer">
           <p>
             Made by{' '}
-            <a href="team6479.org">AZTECH 6479</a>
+            <a href="https://team6479.org">AZTECH 6479</a>
           </p>
         </footer>
       </div>
