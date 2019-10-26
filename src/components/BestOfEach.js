@@ -30,9 +30,6 @@ class BestOfEach extends Component {
         <div className="best-card">
           <h3>Best of each category</h3>
           <p>
-            {/* <span role="img" aria-label="Checkmark">
-              ✅
-            </span>{' '} */}
            Team Rank: <span style={{ fontWeight: 600 }}>{this.findBest('baRankFilter')}</span>
           </p>
           <p>
