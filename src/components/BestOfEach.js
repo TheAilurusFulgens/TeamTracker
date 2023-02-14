@@ -4,24 +4,12 @@ import './BestOfEach.css';
 
 class BestOfEach extends Component {
   findBest = key => {
-    console.log("------------------------------------------------")
-    //console.log(process.env.HOME)
     const keys = this.props.selectedTeams.map(teamObject => teamObject[key]);
     const maxValue = Math.max(...keys);
-    console.log("Values")
-    console.log(keys)
-    console.log("key")
-    console.log(key)
-    console.log("Selected Teams")
-    console.log(this.props.selectedTeams)
-    console.log("Max value")
-    console.log(maxValue)
     const team = this.props.selectedTeams.find(teamObject => {
       console.log("IN FIND: " + teamObject + " Key: " +  teamObject[key] + " Max Value: " + maxValue)
       console.log(teamObject[key] === maxValue)
       return teamObject[key] === maxValue});
-
-      console.log(team)
     return team.name;
   };
   render() {
