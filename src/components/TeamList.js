@@ -419,6 +419,7 @@ class TeamList extends Component {
         </div>
       </div>
       <h4 style={{ textAlign: `center` }}>Total Teams: {this.state.results}</h4>
+      <h4 style={{ textAlign: `center` }}>IF TEAM NAMES ARE NULL, REFRESH THE PAGE</h4>
       <div className="list-and-filters">
         {this.renderTeamList()}
         <TeamFilters
